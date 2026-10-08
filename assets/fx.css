@@ -66,12 +66,10 @@ body.fx .role:hover { transform: translateY(-4px); }
 /* ---------- Small touches ---------- */
 
 /* The header eye blinks now and then */
-body.fx .topbar .mark { width: 200px; height: 200px; margin: -14px -22px -100px -40px; }
-body.fx .hero { padding-top: clamp(60px, 9vw, 120px); }
-body.fx .topbar { align-items: flex-start; }
+body.fx .topbar .mark { width: 88px; height: 88px; margin: -22px 0; }
 body.fx .topbar .name { align-items: center; }
 body.fx .topbar .name { gap: 14px; }
-@media (max-width: 480px) { body.fx .topbar .mark { width: 116px; height: 116px; margin: -10px -12px -60px -22px; } body.fx .hero { padding-top: 64px; } }
+@media (max-width: 480px) { body.fx .topbar .mark { width: 60px; height: 60px; margin: -12px 0; } }
 body.fx svg .eye { transform-origin: 32px 32px; animation: fx-blink 6s ease-in-out infinite; }
 body.fx .ornament svg .eye { animation-delay: 2.5s; }
 @keyframes fx-blink {
@@ -88,7 +86,7 @@ body.fx .ornament svg .eye { animation-delay: 2.5s; }
   display: flex; align-items: center; gap: 18px;
 }
 .ornament::before, .ornament::after { content: ""; flex: 1; height: 1px; background: var(--cream-20); }
-.ornament svg { width: 60px; height: 60px; opacity: .85; flex: none; }
+.ornament svg { width: 150px; height: 150px; opacity: .85; flex: none; }
 body.fx .roles, body.fx .about { border-top: 0; }
 
 /* Opening the chapter: paragraphs arrive one after another */
@@ -109,3 +107,5 @@ body.fx .thanks.open .card { animation: fx-in .7s ease both; }
 @media (prefers-reduced-motion: reduce) {
   body.fx svg .eye, body.fx .reader[open] .excerpt-text p, body.fx .reader[open] .excerpt-end, body.fx .thanks.open .card { animation: none; opacity: 1; }
 }
+
+@media (max-width: 480px) { .ornament svg { width: 110px; height: 110px; } }
