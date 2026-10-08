@@ -66,9 +66,12 @@ body.fx .role:hover { transform: translateY(-4px); }
 /* ---------- Small touches ---------- */
 
 /* The header eye blinks now and then */
-body.fx .topbar .mark { width: 88px; height: 88px; margin: -22px 0; }
+body.fx .topbar .mark { width: 200px; height: 200px; margin: -14px -22px -100px -40px; }
+body.fx .hero { padding-top: clamp(60px, 9vw, 120px); }
+body.fx .topbar { align-items: flex-start; }
+body.fx .topbar .name { align-items: center; }
 body.fx .topbar .name { gap: 14px; }
-@media (max-width: 480px) { body.fx .topbar .mark { width: 60px; height: 60px; margin: -12px 0; } }
+@media (max-width: 480px) { body.fx .topbar .mark { width: 116px; height: 116px; margin: -10px -12px -60px -22px; } body.fx .hero { padding-top: 64px; } }
 body.fx svg .eye { transform-origin: 32px 32px; animation: fx-blink 6s ease-in-out infinite; }
 body.fx .ornament svg .eye { animation-delay: 2.5s; }
 @keyframes fx-blink {
