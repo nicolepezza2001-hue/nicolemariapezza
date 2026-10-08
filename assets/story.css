@@ -4,7 +4,7 @@
 /* ---------- Five roles ---------- */
 .roles {
   max-width: var(--wrap); margin: 0 auto;
-  padding: clamp(40px, 7vw, 90px) var(--gutter) clamp(56px, 8vw, 100px);
+  padding: clamp(40px, 7vw, 90px) var(--gutter) clamp(20px, 3vw, 36px);
   border-top: 1px solid var(--cream-20);
 }
 .roles > .kicker { text-align: center; margin-bottom: clamp(28px, 4vw, 44px); }
@@ -32,38 +32,39 @@
 .role blockquote::before { content: "“"; }
 .role blockquote::after { content: "”"; }
 
-/* ---------- First pages ---------- */
+/* ---------- First pages: a collapsed reader that opens on tap ---------- */
 .excerpt {
   max-width: 720px; margin: 0 auto;
-  padding: clamp(48px, 8vw, 100px) var(--gutter) clamp(56px, 8vw, 100px);
-  border-top: 1px solid var(--cream-20);
+  padding: clamp(28px, 5vw, 56px) var(--gutter) clamp(40px, 6vw, 72px);
 }
-.excerpt-head { text-align: center; margin-bottom: 36px; }
-.excerpt-head h2 {
-  font-family: var(--serif); font-style: italic; font-weight: 400;
-  font-size: clamp(36px, 5vw, 56px); line-height: 1; color: var(--cream); margin: 0;
+.reader { border-top: 1px solid var(--cream-20); border-bottom: 1px solid var(--cream-20); }
+.reader summary {
+  list-style: none; cursor: pointer; text-align: center;
+  padding: 26px 40px 28px; position: relative;
 }
+.reader summary::-webkit-details-marker { display: none; }
+.reader summary .kicker { display: block; margin: 0 0 6px; }
+.reader-title {
+  font-family: var(--serif); font-style: italic; font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.05; color: var(--cream);
+}
+.reader summary:hover .reader-title { color: #fff; }
+.chev {
+  position: absolute; right: 8px; top: 50%; width: 14px; height: 14px; margin-top: -10px;
+  border-right: 1.5px solid var(--cream-60); border-bottom: 1.5px solid var(--cream-60);
+  transform: rotate(45deg); transition: transform .3s ease, margin-top .3s ease;
+}
+.reader[open] .chev { transform: rotate(-135deg); margin-top: -2px; }
 .excerpt-text {
   font-family: var(--serif); font-size: clamp(18px, 1.6vw, 21px); line-height: 1.75;
-  color: var(--cream); position: relative;
+  color: var(--cream); padding: 12px 0 0;
 }
+.reader[open] .excerpt-text { animation: open .6s ease; }
+@keyframes open { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 .excerpt-text p { margin: 0 0 1.1em; text-indent: 1.5em; }
 .excerpt-text p:first-child { text-indent: 0; }
-.excerpt-more { text-align: center; margin-top: 8px; }
-.excerpt-end { text-align: center; margin-top: 36px; }
+.excerpt-end { text-align: center; padding: 18px 0 34px; }
 .excerpt-end p { font-family: var(--serif); font-style: italic; font-size: 24px; color: var(--cream); margin: 0 0 18px; }
-
-/* Folded state (only when scripts run): show the opening, fade out the rest */
-.js .excerpt-text { max-height: 26em; overflow: hidden; transition: max-height 1s ease; }
-.js .excerpt-text::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 9em;
-  background: linear-gradient(180deg, rgba(18,7,8,0), var(--bg)); pointer-events: none; transition: opacity .6s;
-}
-.js .excerpt.open .excerpt-text { max-height: 200em; }
-.js .excerpt.open .excerpt-text::after { opacity: 0; }
-.js .excerpt .excerpt-end { display: none; }
-.js .excerpt.open .excerpt-end { display: block; }
-html:not(.js) .excerpt-more { display: none; }
 
 /* ---------- Gentle fade-in on scroll ---------- */
 .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .9s ease, transform .9s ease; }
@@ -88,5 +89,6 @@ html:not(.js) .excerpt-more { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
-  .role-img img, .js .excerpt-text { transition: none; }
+  .role-img img { transition: none; }
+  .reader[open] .excerpt-text { animation: none; }
 }
