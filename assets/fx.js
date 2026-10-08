@@ -19,6 +19,22 @@
     hero.addEventListener("pointerleave", function () { tilt.style.transform = ""; });
   }
 
+  // The divider eye: its iris follows the cursor, and it blinks when touched
+  document.querySelectorAll(".ornament svg").forEach(function (svg) {
+    var iris = svg.querySelector(".iris");
+    function blink() { svg.classList.remove("blinking"); void svg.getBoundingClientRect(); svg.classList.add("blinking"); }
+    svg.addEventListener("animationend", function (e) { if (e.animationName === "fx-blink-once") svg.classList.remove("blinking"); });
+    svg.addEventListener("pointerenter", blink);
+    svg.addEventListener("click", blink);
+    if (!iris) return;
+    function look(x, y) {
+      var r = svg.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
+      iris.style.transform = "translate(" + (dx / d * 3.6 * k).toFixed(2) + "px," + (dy / d * 1.5 * k).toFixed(2) + "px)";
+    }
+    addEventListener("pointermove", function (e) { look(e.clientX, e.clientY); }, { passive: true });
+  });
+
   // Embers: three depths, like drifting sparks filmed with a shallow focus.
   // Far: many tiny specks. Mid: brighter sparks with a short motion streak. Near: a few large, soft, out-of-focus glows.
   var c = document.createElement("canvas"); c.className = "fx-embers"; c.setAttribute("aria-hidden", "true");

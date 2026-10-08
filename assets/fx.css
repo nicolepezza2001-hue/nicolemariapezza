@@ -116,3 +116,10 @@ body.fx .thanks.open .card { animation: fx-in .7s ease both; }
 }
 
 @media (max-width: 480px) { .ornament svg { width: 52px; height: 52px; } }
+
+/* The divider eye watches the cursor, and blinks when you touch it */
+.ornament svg { cursor: default; overflow: visible; }
+.ornament svg .iris { transition: transform .25s ease-out; }
+body.fx .ornament svg.blinking .eye { animation: fx-blink-once .45s ease-in-out; }
+@keyframes fx-blink-once { 0%, 100% { transform: scaleY(1); } 45% { transform: scaleY(.06); } }
+@media (prefers-reduced-motion: reduce) { .ornament svg .iris { transition: none; } }
