@@ -25,7 +25,7 @@
       body: JSON.stringify({
         email: data.get("email"),
         language: document.documentElement.lang,
-        _subject: "New preorder signup: Tallulah (" + document.documentElement.lang.toUpperCase() + ")",
+        _subject: "New message from \"nicolemariapezza.com\" (preorder " + document.documentElement.lang.toUpperCase() + ")",
         _template: "table",
         _captcha: "false"
       })
