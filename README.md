@@ -17,6 +17,6 @@ Author site for Nicole Maria Pezza and *Tallulah Has Nothing / Tallulah Non Ha N
 
 **Domain:** once DNS points to GitHub, add a `CNAME` file containing `nicolemariapezza.com`. `/blog/` redirects home (the old WordPress blog had only the sample post).
 
-**Visitor stats:** GoatCounter (no cookies) at https://nicolemariapezza.goatcounter.com. Besides page views it records two events: `chapter-opened-en/it` and `preorder-signup-en/it`.
+**Visitor stats:** GoatCounter (no cookies) at https://nicolep.goatcounter.com. Besides page views it records two events: `chapter-opened-en/it` and `preorder-signup-en/it`.
 
 **Search:** `robots.txt`, `sitemap.xml`, and structured data (WebSite, Person, Book) in the head of both home pages.
