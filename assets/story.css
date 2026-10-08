@@ -203,3 +203,26 @@
   .reader[open] .excerpt-text { animation: none; }
   .reader-btn, .reader-btn::before, .reader-btn::after, .reader-btn .chev, .reader-btn .rb-eye .eye { animation: none !important; }
 }
+
+/* Quieter sibling of the chapter button: deep oxblood pill, a thin gold ring that slowly travels, no glow */
+.btn-ember {
+  position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 12px;
+  padding: 15px 30px 15px 32px; border-radius: 999px; text-decoration: none;
+  font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--cream);
+  background: linear-gradient(180deg, #5a0710 0%, #3a040a 100%);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .45);
+  overflow: hidden; transition: transform .35s cubic-bezier(.2,.7,.1,1), background .3s;
+}
+.btn-ember::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 1; pointer-events: none;
+  background: conic-gradient(from var(--rb-a, 0deg), rgba(255,207,122,.9), rgba(255,106,43,.5) 18%, rgba(255,207,122,.12) 35%, rgba(255,207,122,.12) 65%, rgba(255,106,43,.5) 82%, rgba(255,207,122,.9));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: rb-spin 6s linear infinite;
+}
+.btn-ember span { position: relative; z-index: 2; }
+.btn-ember .be-arrow { font-style: normal; font-size: 18px; transition: transform .35s ease; }
+.btn-ember:hover { transform: translateY(-2px); background: linear-gradient(180deg, #6a0913 0%, #43050c 100%); }
+.btn-ember:hover .be-arrow { transform: translateX(4px); }
+.btn-ember:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .btn-ember::before { animation: none; } }
