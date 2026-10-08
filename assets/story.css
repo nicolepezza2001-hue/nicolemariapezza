@@ -226,3 +226,29 @@
 .btn-ember:hover .be-arrow { transform: translateX(4px); }
 .btn-ember:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .btn-ember::before { animation: none; } }
+
+/* Email + Preorder as one pill, in the same family as the other buttons */
+.preorder .row {
+  align-items: center; gap: 6px; padding: 6px; border-radius: 999px;
+  background: rgba(255, 247, 235, .06);
+  box-shadow: 0 0 0 1px rgba(255, 207, 122, .28) inset, 0 12px 30px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: box-shadow .3s;
+}
+.preorder .row:focus-within { box-shadow: 0 0 0 1px rgba(255, 207, 122, .6) inset, 0 12px 30px rgba(0, 0, 0, .35); }
+.preorder input[type="email"] {
+  background: transparent; color: var(--cream); border-radius: 999px;
+  padding: 12px 18px; font-size: 18px;
+}
+.preorder input[type="email"]::placeholder { color: rgba(255, 247, 235, .5); }
+.preorder input[type="email"]:focus { outline: none; }
+.preorder .btn-ember { border: 0; cursor: pointer; font-size: 20px; padding: 12px 24px 12px 26px; white-space: nowrap; flex: none; }
+.preorder .btn-ember:disabled { opacity: .6; cursor: wait; }
+@media (max-width: 480px) {
+  .preorder .row { flex-direction: row; border-radius: 999px; }
+  .preorder input[type="email"] { padding: 10px 12px; font-size: 16px; }
+  .preorder .btn-ember { font-size: 17px; padding: 11px 18px; width: auto; }
+}
+.preorder input[type="email"] { width: 0; flex: 1 1 auto; min-width: 0; }
+@media (max-width: 860px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 380px) { .preorder .btn-ember .be-arrow { display: none; } }
