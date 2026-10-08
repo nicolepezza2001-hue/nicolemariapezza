@@ -39,13 +39,17 @@
              r: rnd(L.r), sp: rnd(L.speed), a: rnd(L.alpha), t: Math.random() * 6.3, f: 0.6 + Math.random() * 1.6,
              drift: (Math.random() - 0.3) * 0.6, hue: Math.random() < 0.12 ? 36 + Math.random() * 10 : 4 + Math.random() * 20 };
   }
-  function size() { W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-  // How far down the page we are (0 at the top, 1 at the bottom): embers thin out and deepen in colour as you scroll
+  // The embers cover the page from the top down to the first star-eye divider, and stop there
   var depth = 0;
-  function measure() { var max = document.documentElement.scrollHeight - innerHeight; depth = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0; }
-  addEventListener("scroll", measure, { passive: true }); addEventListener("resize", measure); measure();
-  function active() { return Math.round(N * Math.pow(1 - depth, 1.6) + N * 0.04 * (1 - depth)); }
-  size(); window.addEventListener("resize", size);
+  function active() { return N; }
+  function size() {
+    var stop = document.querySelector(".ornament");
+    var h = stop ? stop.getBoundingClientRect().top + scrollY + stop.offsetHeight / 2 : innerHeight;
+    c.style.height = Math.round(h) + "px";
+    W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  size(); window.addEventListener("resize", size); window.addEventListener("load", size);
+  new IntersectionObserver(function (es) { var was = visible; visible = es[0].isIntersecting; if (visible && !was) { last = 0; requestAnimationFrame(loop); } }).observe(c);
   var N = W < 700 ? 130 : 280;
   for (var i = 0; i < N; i++) parts.push(spawn(true));
   function loop(now) {
@@ -65,7 +69,7 @@
       var vx = (p.drift + wind * (0.4 + p.sp * 0.5) + Math.sin(p.t * 0.7) * 0.35) * dt;
       var vy = -p.sp * dt;
       p.x += vx; p.y += vy;
-      var fade = Math.max(0, Math.min(1, p.y / (H * 0.15), (H + 20 - p.y) / (H * 0.08)));
+      var fade = Math.max(0, Math.min(1, p.y / (H * 0.12), (H - p.y) / 160));
       var flick = 0.65 + Math.sin(p.t * 3.1) * 0.25 + Math.sin(p.t * 7.3) * 0.1;
       var a = p.a * fade * flick; if (a <= 0.01) { if (p.y < -30) parts[i] = spawn(false); continue; }
       var hue = p.hue - depth * 14, lit = (L.blur ? 55 : 62) - depth * 12;

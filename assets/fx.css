@@ -6,7 +6,7 @@ body.fx {
   position: relative; overflow-x: clip;
   /* The colour journey: ember-lit at the top, through wine and plum, to pitch black at the bottom */
   background: linear-gradient(180deg,
-    #2a0c08 0%, #3b110a 14%, #34100f 26%, #2a0b16 40%, #200a1f 54%, #150818 68%, #0b0510 82%, #030204 93%, #000 100%);
+    var(--bg) 0, var(--bg) max(118vh, 820px), #2c0d12 42%, #220a1c 56%, #160818 70%, #0b0510 84%, #030204 94%, #000 100%);
 }
 body.fx::before, body.fx::after {
   content: ""; position: absolute; left: 0; right: 0; top: 0; height: 118vh; min-height: 820px;
@@ -21,16 +21,15 @@ body.fx::before {
 }
 body.fx::after {
   z-index: -1;
-  -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 95%);
-          mask-image: linear-gradient(180deg, #000 50%, transparent 95%);
+
   background:
     linear-gradient(90deg, rgba(18,7,8,.92) 0%, rgba(18,7,8,.78) 40%, rgba(18,7,8,.35) 72%, rgba(18,7,8,.55) 100%),
-    linear-gradient(180deg, rgba(18,7,8,.5) 0%, rgba(18,7,8,0) 25%, rgba(18,7,8,.1) 65%, rgba(42,12,8,0) 100%);
+    linear-gradient(180deg, rgba(18,7,8,.5) 0%, rgba(18,7,8,0) 25%, rgba(18,7,8,.15) 65%, var(--bg) 100%);
 }
 body.fx > main, body.fx > header, body.fx > footer { position: relative; z-index: 1; }
 @keyframes fx-drift { from { transform: scale(1.04); } to { transform: scale(1.12) translate(-1.5%, -1%); } }
 
-.fx-embers { position: fixed; left: 0; top: 0; width: 100%; height: 100vh; height: 100lvh; pointer-events: none; z-index: 2; }
+.fx-embers { position: absolute; left: 0; top: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 2; }
 body.fx footer { background: transparent; }
 
 /* Hero arrives in a gentle sequence on load */
@@ -61,7 +60,7 @@ body.fx .role:hover { transform: translateY(-4px); }
 
 @media (max-width: 860px) {
   body.fx::after {
-    background: linear-gradient(180deg, rgba(18,7,8,.72) 0%, rgba(18,7,8,.5) 35%, rgba(18,7,8,.6) 75%, rgba(42,12,8,0) 100%);
+    background: linear-gradient(180deg, rgba(18,7,8,.72) 0%, rgba(18,7,8,.5) 35%, rgba(18,7,8,.85) 75%, var(--bg) 100%);
   }
 }
 
