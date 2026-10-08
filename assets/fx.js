@@ -46,7 +46,13 @@
       var dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
       iris.style.transform = "translate(" + (dx / d * 3.6 * k).toFixed(2) + "px," + (dy / d * 1.5 * k).toFixed(2) + "px)";
     }
-    addEventListener("pointermove", function (e) { look(e.clientX, e.clientY); }, { passive: true });
+    // Only on devices with a real cursor; on phones the eye just blinks
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      addEventListener("pointermove", function (e) { look(e.clientX, e.clientY); }, { passive: true });
+    } else if ("IntersectionObserver" in window) {
+      // on phones, blink as soon as it scrolls into view
+      new IntersectionObserver(function (es) { if (es[0].isIntersecting) { blink(); setTimeout(blink, 520); } }, { threshold: 0.6 }).observe(svg);
+    }
   });
 
   // Embers: three depths, like drifting sparks filmed with a shallow focus.
