@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /blog/
+
+Sitemap: https://nicolemariapezza.com/sitemap.xml

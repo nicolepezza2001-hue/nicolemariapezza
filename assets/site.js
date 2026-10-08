@@ -38,7 +38,7 @@
         })
       })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(function () { form.reset(); thanks.classList.add("open"); thanks.querySelector(".close").focus(); })
+        .then(function () { form.reset(); thanks.classList.add("open"); thanks.querySelector(".close").focus(); if (window.nmpTrack) nmpTrack("preorder-signup-" + document.documentElement.lang); })
         .catch(function () { err.textContent = form.dataset.error; })
         .finally(function () { btn.disabled = false; });
     });

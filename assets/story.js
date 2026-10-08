@@ -14,6 +14,12 @@
     els.forEach(function (el) { el.classList.add("in"); });
   }
 
+  // Count (anonymously) how many visitors open the chapter
+  function track(name) { try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
+  window.nmpTrack = track;
+  var reader = document.querySelector(".reader");
+  if (reader) reader.addEventListener("toggle", function () { if (reader.open) track("chapter-opened-" + document.documentElement.lang); });
+
   // ---------- Roles carousel ----------
   var section = document.querySelector(".roles");
   if (!section) return;

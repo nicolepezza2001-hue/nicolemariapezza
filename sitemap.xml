@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://nicolemariapezza.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nicolemariapezza.com/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://nicolemariapezza.com/home-italian/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nicolemariapezza.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nicolemariapezza.com/home-italian/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nicolemariapezza.com/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://nicolemariapezza.com/home-italian/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nicolemariapezza.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nicolemariapezza.com/privacy-policy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nicolemariapezza.com/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://nicolemariapezza.com/privacy-policy/it/"/>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://nicolemariapezza.com/privacy-policy/it/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nicolemariapezza.com/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://nicolemariapezza.com/privacy-policy/it/"/>
+    <priority>0.2</priority>
+  </url>
+</urlset>
