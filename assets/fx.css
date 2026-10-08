@@ -20,10 +20,10 @@ body.fx::after {
     linear-gradient(90deg, rgba(18,7,8,.92) 0%, rgba(18,7,8,.78) 40%, rgba(18,7,8,.35) 72%, rgba(18,7,8,.55) 100%),
     linear-gradient(180deg, rgba(18,7,8,.5) 0%, rgba(18,7,8,0) 25%, rgba(18,7,8,.15) 65%, var(--bg) 100%);
 }
-body.fx > main, body.fx > header, body.fx > footer { position: relative; }
+body.fx > main, body.fx > header, body.fx > footer { position: relative; z-index: 1; }
 @keyframes fx-drift { from { transform: scale(1.04); } to { transform: scale(1.12) translate(-1.5%, -1%); } }
 
-.fx-embers { position: absolute; left: 0; top: 0; width: 100%; height: 110vh; pointer-events: none; z-index: -1; }
+.fx-embers { position: absolute; left: 0; top: 0; width: 100%; height: 125vh; pointer-events: none; z-index: 0; }
 
 /* Hero arrives in a gentle sequence on load */
 .js body.fx .hero-head > *, .js body.fx .hero-book, .js body.fx .hero-body > * {
@@ -66,7 +66,9 @@ body.fx .role:hover { transform: translateY(-4px); }
 /* ---------- Small touches ---------- */
 
 /* The header eye blinks now and then */
-body.fx .topbar .mark { width: 42px; height: 42px; }
+body.fx .topbar .mark { width: 64px; height: 64px; margin: -10px 0; }
+body.fx .topbar .name { gap: 14px; }
+@media (max-width: 480px) { body.fx .topbar .mark { width: 48px; height: 48px; margin: -6px 0; } }
 body.fx svg .eye { transform-origin: 32px 32px; animation: fx-blink 6s ease-in-out infinite; }
 body.fx .ornament svg .eye { animation-delay: 2.5s; }
 @keyframes fx-blink {
@@ -83,7 +85,7 @@ body.fx .ornament svg .eye { animation-delay: 2.5s; }
   display: flex; align-items: center; gap: 18px;
 }
 .ornament::before, .ornament::after { content: ""; flex: 1; height: 1px; background: var(--cream-20); }
-.ornament svg { width: 30px; height: 30px; opacity: .85; flex: none; }
+.ornament svg { width: 44px; height: 44px; opacity: .85; flex: none; }
 body.fx .roles, body.fx .about { border-top: 0; }
 
 /* Opening the chapter: paragraphs arrive one after another */
