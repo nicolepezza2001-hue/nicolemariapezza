@@ -66,8 +66,16 @@ body.fx .role:hover { transform: translateY(-4px); }
 /* ---------- Small touches ---------- */
 
 /* The header eye blinks now and then */
-body.fx .topbar svg.mark .eye { transform-origin: 32px 32px; animation: fx-blink 9s ease-in-out infinite; }
-@keyframes fx-blink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.08); } }
+body.fx .topbar .mark { width: 42px; height: 42px; }
+body.fx svg .eye { transform-origin: 32px 32px; animation: fx-blink 6s ease-in-out infinite; }
+body.fx .ornament svg .eye { animation-delay: 2.5s; }
+@keyframes fx-blink {
+  0%, 86%, 100% { transform: scaleY(1); }
+  89% { transform: scaleY(.06); }
+  92% { transform: scaleY(1); }
+  94.5% { transform: scaleY(.06); }
+  97% { transform: scaleY(1); }
+}
 
 /* Star-eye ornaments between sections, with a fine line either side */
 .ornament {
@@ -75,7 +83,7 @@ body.fx .topbar svg.mark .eye { transform-origin: 32px 32px; animation: fx-blink
   display: flex; align-items: center; gap: 18px;
 }
 .ornament::before, .ornament::after { content: ""; flex: 1; height: 1px; background: var(--cream-20); }
-.ornament img { width: 22px; height: 22px; opacity: .75; }
+.ornament svg { width: 30px; height: 30px; opacity: .85; flex: none; }
 body.fx .roles, body.fx .about { border-top: 0; }
 
 /* Opening the chapter: paragraphs arrive one after another */
@@ -94,5 +102,5 @@ body.fx .reader[open] .excerpt-end { animation-delay: 1s; }
 body.fx .thanks.open .card { animation: fx-in .7s ease both; }
 
 @media (prefers-reduced-motion: reduce) {
-  body.fx .topbar svg.mark .eye, body.fx .reader[open] .excerpt-text p, body.fx .reader[open] .excerpt-end, body.fx .thanks.open .card { animation: none; opacity: 1; }
+  body.fx svg .eye, body.fx .reader[open] .excerpt-text p, body.fx .reader[open] .excerpt-end, body.fx .thanks.open .card { animation: none; opacity: 1; }
 }
