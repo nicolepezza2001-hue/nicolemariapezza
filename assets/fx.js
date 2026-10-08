@@ -49,6 +49,7 @@
     W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   size(); window.addEventListener("resize", size); window.addEventListener("load", size);
+  if ("ResizeObserver" in window) new ResizeObserver(function () { size(); }).observe(document.body);
   new IntersectionObserver(function (es) { var was = visible; visible = es[0].isIntersecting; if (visible && !was) { last = 0; requestAnimationFrame(loop); } }).observe(c);
   var N = W < 700 ? 130 : 280;
   for (var i = 0; i < N; i++) parts.push(spawn(true));
