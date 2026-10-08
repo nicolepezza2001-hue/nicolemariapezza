@@ -47,7 +47,8 @@ body.fx footer { background: transparent; }
 /* The book floats, and leans a little towards the pointer */
 body.fx .hero-book { perspective: 1200px; }
 body.fx .hero-book .tilt { transition: transform .4s ease-out; transform-style: preserve-3d; }
-body.fx .hero-book img { animation: fx-float 7s ease-in-out infinite; filter: drop-shadow(0 34px 44px rgba(0,0,0,.7)) drop-shadow(0 0 50px rgba(134,9,18,.3)); }
+body.fx .hero-book .tilt { animation: fx-float 7s ease-in-out infinite; }
+body.fx .hero-book img { filter: drop-shadow(0 34px 44px rgba(0,0,0,.7)) drop-shadow(0 0 50px rgba(134,9,18,.3)); }
 @keyframes fx-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 
 /* The star-eye turns slowly when you hover the name */
@@ -65,7 +66,7 @@ body.fx .role:hover { transform: translateY(-4px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.fx::before, body.fx .hero-book img { animation: none; }
+  body.fx::before, body.fx .hero-book .tilt { animation: none; }
   .js body.fx .hero-head > *, .js body.fx .hero-book, .js body.fx .hero-body > * { animation: none; opacity: 1; transform: none; }
   .fx-embers { display: none; }
 }
@@ -78,7 +79,7 @@ body.fx .topbar .name { align-items: center; }
 body.fx .topbar .name { gap: 14px; }
 @media (max-width: 480px) { body.fx .topbar .mark { width: 44px; height: 44px; margin: -8px 0; } }
 body.fx svg .eye { transform-origin: 32px 32px; animation: fx-blink 6s ease-in-out infinite; }
-body.fx .ornament svg .eye { animation-delay: 2.5s; }
+body.fx .ornament svg .eye { animation: none; transform-box: view-box; transform-origin: 32px 32px; }
 @keyframes fx-blink {
   0%, 86%, 100% { transform: scaleY(1); }
   89% { transform: scaleY(.06); }
@@ -120,6 +121,9 @@ body.fx .thanks.open .card { animation: fx-in .7s ease both; }
 /* The divider eye watches the cursor, and blinks when you touch it */
 .ornament svg { cursor: default; overflow: visible; }
 .ornament svg .iris { transition: transform .25s ease-out; }
-body.fx .ornament svg.blinking .eye { animation: fx-blink-once .45s ease-in-out; }
 @keyframes fx-blink-once { 0%, 100% { transform: scaleY(1); } 45% { transform: scaleY(.06); } }
 @media (prefers-reduced-motion: reduce) { .ornament svg .iris { transition: none; } }
+
+/* The eye on the cover blinks too (a painted lid closes over it); driven by fx.js */
+.hero-book .tilt { position: relative; display: block; }
+.cover-lid { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
