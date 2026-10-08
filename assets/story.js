@@ -37,8 +37,16 @@
   });
   row.parentNode.insertBefore(nav, row.nextSibling);
 
+  var leaveTimer = null;
   function show(k) {
+    var prevI = i;
     i = (k + slides.length) % slides.length;
+    clearTimeout(leaveTimer);
+    slides.forEach(function (s) { s.classList.remove("is-leaving"); });
+    if (prevI !== i && slides[prevI].classList.contains("is-active")) {
+      slides[prevI].classList.add("is-leaving");
+      leaveTimer = setTimeout(function () { slides[prevI].classList.remove("is-leaving"); }, 1600);
+    }
     slides.forEach(function (s, n) { s.classList.toggle("is-active", n === i); s.setAttribute("aria-hidden", n === i ? "false" : "true"); });
     dots.forEach(function (d, n) {
       d.removeAttribute("aria-current");

@@ -40,26 +40,36 @@
              drift: (Math.random() - 0.3) * 0.6, hue: Math.random() < 0.12 ? 36 + Math.random() * 10 : 4 + Math.random() * 20 };
   }
   function size() { W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  // How far down the page we are (0 at the top, 1 at the bottom): embers thin out and deepen in colour as you scroll
+  var depth = 0;
+  function measure() { var max = document.documentElement.scrollHeight - innerHeight; depth = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0; }
+  addEventListener("scroll", measure, { passive: true }); addEventListener("resize", measure); measure();
+  function active() { return Math.round(N * Math.pow(1 - depth, 1.6) + N * 0.04 * (1 - depth)); }
   size(); window.addEventListener("resize", size);
   var N = W < 700 ? 130 : 280;
   for (var i = 0; i < N; i++) parts.push(spawn(true));
-  new IntersectionObserver(function (es) { var was = visible; visible = es[0].isIntersecting; if (visible && !was) { last = 0; requestAnimationFrame(loop); } }).observe(c);
   function loop(now) {
     if (!visible) return;
     var dt = last ? Math.min((now - last) / 16.7, 3) : 1; last = now;
+    if (document.hidden) { requestAnimationFrame(loop); return; }
     windT += 0.004 * dt; wind = Math.sin(windT) * 0.6 + Math.sin(windT * 2.7) * 0.25;
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = "lighter";
+    var on = active();
     for (var i = 0; i < parts.length; i++) {
       var p = parts[i], L = p.L;
+      if (i >= on && p.dormant) continue;
+      if (i >= on && (p.y < -30 || p.y > H + 60)) { p.dormant = true; continue; }
+      if (i < on && p.dormant) { parts[i] = p = spawn(false); L = p.L; }
       p.t += 0.03 * p.f * dt;
       var vx = (p.drift + wind * (0.4 + p.sp * 0.5) + Math.sin(p.t * 0.7) * 0.35) * dt;
       var vy = -p.sp * dt;
       p.x += vx; p.y += vy;
-      var fade = Math.max(0, Math.min(1, p.y / (H * 0.18), (H - p.y) / (H * 0.12)));
+      var fade = Math.max(0, Math.min(1, p.y / (H * 0.15), (H + 20 - p.y) / (H * 0.08)));
       var flick = 0.65 + Math.sin(p.t * 3.1) * 0.25 + Math.sin(p.t * 7.3) * 0.1;
       var a = p.a * fade * flick; if (a <= 0.01) { if (p.y < -30) parts[i] = spawn(false); continue; }
-      var col = "hsla(" + p.hue.toFixed(0) + ",100%," + (L.blur ? 55 : 62) + "%,";
+      var hue = p.hue - depth * 14, lit = (L.blur ? 55 : 62) - depth * 12;
+      var col = "hsla(" + hue.toFixed(0) + ",100%," + lit.toFixed(0) + "%,";
       if (L.blur) {
         var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.2);
         g.addColorStop(0, col + (a * 0.9).toFixed(3) + ")"); g.addColorStop(0.45, col + (a * 0.45).toFixed(3) + ")"); g.addColorStop(1, col + "0)");
@@ -69,10 +79,10 @@
         var len = Math.max(0.01, Math.hypot(vx, vy)) , k = L.streak * p.r / len;
         ctx.strokeStyle = col + (a * 0.55).toFixed(3) + ")"; ctx.lineWidth = p.r * 1.6; ctx.lineCap = "round";
         ctx.beginPath(); ctx.moveTo(p.x - vx * k, p.y - vy * k); ctx.lineTo(p.x, p.y); ctx.stroke();
-        ctx.fillStyle = "hsla(" + (p.hue + 8).toFixed(0) + ",100%,64%," + a.toFixed(3) + ")";
+        ctx.fillStyle = "hsla(" + (hue + 8).toFixed(0) + ",100%," + (64 - depth * 12).toFixed(0) + "%," + a.toFixed(3) + ")";
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 0.75, 0, 6.283); ctx.fill();
       }
-      if (p.y < -30 || p.x < -60 || p.x > W + 60) parts[i] = spawn(false);
+      if (p.y < -30 || p.x < -60 || p.x > W + 60) parts[i] = i < on ? spawn(false) : (p.dormant = true, p);
     }
     ctx.globalCompositeOperation = "source-over";
     requestAnimationFrame(loop);

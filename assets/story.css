@@ -90,22 +90,43 @@
 .js .roles.is-carousel .role {
   grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   gap: clamp(24px, 4vw, 48px); align-items: center; max-width: 820px; margin: 0 auto; width: 100%;
-  opacity: 0; visibility: hidden; transform: none; transition: opacity .9s ease, visibility 0s linear .9s;
+  opacity: 0; visibility: hidden; transform: none; z-index: 0;
+  transition: opacity .5s ease, visibility 0s linear .5s;
 }
-.js .roles.is-carousel .role.is-active { opacity: 1; visibility: visible; transition: opacity .9s ease, visibility 0s; }
-.roles.is-carousel .role-img { aspect-ratio: 4 / 5; width: 100%; justify-self: end; max-width: 300px; box-shadow: 0 24px 50px rgba(0,0,0,.5); }
-.roles.is-carousel .role-img img { transform: scale(1.08); transition: transform 7s ease-out, filter .6s; filter: saturate(.95); }
+.js .roles.is-carousel .role.is-active { opacity: 1; visibility: visible; z-index: 2; transition: none; }
+/* the slide that is leaving stays underneath while the new one is revealed over it */
+.js .roles.is-carousel .role.is-leaving { opacity: 1; visibility: visible; z-index: 1; transition: none; }
+
+.roles.is-carousel .role-img {
+  aspect-ratio: 4 / 5; width: 100%; justify-self: end; max-width: 300px;
+  box-shadow: 0 24px 50px rgba(0,0,0,.5); position: relative;
+}
+.roles.is-carousel .role-img img { transform: scale(1.03); filter: saturate(.95); transition: transform 6s ease-out; }
 .roles.is-carousel .role.is-active .role-img img { transform: scale(1); }
+
+/* new painting: a soft dissolving wipe, coming slowly into focus */
+.roles.is-carousel .role.is-active .role-img {
+  -webkit-mask-image: linear-gradient(100deg, #000 45%, transparent 55%); mask-image: linear-gradient(100deg, #000 45%, transparent 55%);
+  -webkit-mask-size: 300% 100%; mask-size: 300% 100%;
+  animation: role-wipe 1.5s cubic-bezier(.45,.05,.25,1) both;
+}
+.roles.is-carousel .role.is-active .role-img img { animation: role-focus 1.6s ease-out both; }
+@keyframes role-wipe { from { -webkit-mask-position: 100% 0; mask-position: 100% 0; } to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
+@keyframes role-focus { from { filter: blur(6px) saturate(.6) brightness(.7); } to { filter: blur(0) saturate(.95) brightness(1); } }
+/* old painting dims and drifts back while it is covered */
+.roles.is-carousel .role.is-leaving .role-img img { animation: role-out 1.5s ease-in both; }
+@keyframes role-out { to { transform: scale(1.06); filter: brightness(.45) saturate(.6); } }
+
 .roles.is-carousel figcaption { padding: 0; max-width: 400px; }
 .roles.is-carousel .num { font-size: 16px; letter-spacing: 2px; }
 .roles.is-carousel h3 { font-size: clamp(34px, 3.6vw, 48px); line-height: 1; margin: 2px 0 14px; }
 .roles.is-carousel blockquote { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.5; color: var(--cream-85); }
-.roles.is-carousel figcaption > * { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.1,1); }
-.roles.is-carousel .role.is-active figcaption > * { opacity: 1; transform: none; }
-.roles.is-carousel .role.is-active .num { transition-delay: .25s; }
-.roles.is-carousel .role.is-active h3 { transition-delay: .4s; }
-.roles.is-carousel .role.is-active blockquote { transition-delay: .7s; }
-.roles.is-carousel .role:hover .role-img img { filter: saturate(1); }
+.roles.is-carousel figcaption > * { opacity: 0; transform: translateY(12px); filter: blur(4px); transition: opacity .9s ease, transform 1s cubic-bezier(.2,.7,.1,1), filter .9s ease; }
+.roles.is-carousel .role.is-active figcaption > * { opacity: 1; transform: none; filter: none; }
+.roles.is-carousel .role.is-active .num { transition-delay: .55s; }
+.roles.is-carousel .role.is-active h3 { transition-delay: .7s; }
+.roles.is-carousel .role.is-active blockquote { transition-delay: 1s; }
+.roles.is-carousel .role.is-leaving figcaption > * { opacity: 0; transform: translateY(-8px); filter: blur(3px); transition: opacity .45s ease, transform .5s ease, filter .45s ease; }
 
 .role-nav { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 22px; }
 .role-nav button {
@@ -143,6 +164,6 @@
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .role-img img, .roles.is-carousel .role-img img { transition: none; transform: none; }
-  .roles.is-carousel figcaption > * { transition: none; }
+  .roles.is-carousel figcaption > *, .roles.is-carousel .role-img, .roles.is-carousel .role-img img { transition: none; animation: none !important; filter: none; }
   .reader[open] .excerpt-text { animation: none; }
 }
