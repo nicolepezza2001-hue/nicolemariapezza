@@ -9,7 +9,7 @@ Author site for Nicole Maria Pezza and *Tallulah Has Nothing / Tallulah Non Ha N
 | Privacy policy | `privacy-policy/index.html` |
 | Styles (colors, fonts, layout) | `assets/style.css` |
 | Preorder form behavior | `assets/site.js` |
-| Images | `images/` |
+| Images | `images/` (book covers are `book-en.webp` / `book-it.webp`) |
 
 **Editing:** change the English and Italian pages together so they stay in sync. Colors and fonts are variables at the top of `assets/style.css`.
 
