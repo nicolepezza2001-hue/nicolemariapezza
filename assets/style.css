@@ -1,0 +1,194 @@
+/* nicolemariapezza.com — rebuilt from the original Elementor design */
+:root {
+  --cream: #FFF7EB;
+  --cream-80: #FFF7EBCC;
+  --cream-20: #FFF7EB33;
+  --red: #860912;
+  --field: #D9D9D9;
+  --field-text: #838383CC;
+  --bg: #120708;
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "Parkinsans", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg) url("../images/background.png") top center / cover no-repeat;
+  color: var(--cream-80);
+  font-family: var(--sans);
+  font-weight: 200;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+
+.page { position: relative; max-width: 1440px; margin: 0 auto; overflow: hidden; }
+
+/* Language switcher (top right) */
+.lang {
+  position: absolute; top: 20px; right: 20px; z-index: 20;
+  display: flex; gap: 0;
+}
+.lang a {
+  font-family: var(--sans); font-size: 18px; font-weight: 400;
+  text-decoration: none; padding: 10px 18px;
+  background: transparent; color: var(--cream);
+}
+.lang a[aria-current="true"] {
+  background: var(--cream); color: var(--red);
+  border-radius: 0 30px 30px 0;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  width: 709px; max-width: 100%;
+  margin-left: max(20px, calc((100% - 1240px) / 2));
+  padding: 134px 0 277px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+.hero h1 {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 120px; line-height: 120px; letter-spacing: -2.4px;
+  color: var(--cream); margin: 0;
+}
+.hero .blurb {
+  width: 396px; max-width: 100%; padding-right: 10px; position: relative; z-index: 9;
+  font-size: 24px; line-height: 31px; letter-spacing: -0.48px;
+}
+.hero .blurb p { margin: 0 0 20px; }
+.hero .blurb p:last-child { margin-bottom: 0; }
+
+.book {
+  position: absolute; top: 433px; right: 0;
+  width: 40%; max-width: 40%;
+}
+.book img { max-width: 530px; width: 100%; margin-left: auto; }
+
+/* Preorder form */
+.preorder { width: 451px; max-width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 9; }
+.preorder input[type="email"] {
+  width: 100%; border: 0; border-radius: 0;
+  background: var(--field); color: #3a3a3a;
+  font-family: var(--sans); font-size: 24px; font-weight: 200; line-height: 36px;
+  padding: 6px 14px;
+}
+.preorder input[type="email"]::placeholder { color: var(--field-text); }
+.preorder .hp { position: absolute; left: -9999px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: flex-start;
+  font-family: var(--sans); font-size: 24px; font-weight: 200; letter-spacing: -0.48px;
+  text-decoration: none; border: 0; cursor: pointer;
+  border-radius: 0 40px 40px 0;
+  padding: 16px 36px 16px 24px;
+  transition: opacity .2s;
+}
+.btn:hover { opacity: .9; }
+.btn b, .btn strong { font-weight: 400; }
+.btn-red { background: var(--red); color: var(--cream); }
+.btn-cream { background: var(--cream); color: var(--red); }
+.preorder .btn { border-radius: 0 30px 30px 0; padding: 12px 20px 12px 14px; align-self: flex-start; }
+.preorder .error { color: var(--cream); font-size: 16px; margin: 0; min-height: 0; }
+
+/* About */
+.about {
+  width: 618px; max-width: 100%;
+  margin-left: max(20px, calc((100% - 1240px) / 2 + 190px));
+  padding: 150px 0 50px;
+}
+.about h2 {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 64px; line-height: 64px; letter-spacing: -1.28px;
+  color: var(--cream); margin: 0; padding-bottom: 60px; width: 321px; max-width: 100%;
+}
+.about .portrait img { width: 100%; max-width: 457px; }
+.about .links {
+  margin-top: -125px; padding-left: 21px;
+  display: flex; flex-direction: column; gap: 14px; position: relative;
+}
+.about .links .btn { width: 415px; max-width: 100%; }
+.about .bio {
+  padding: 60px 15px 0 0;
+  font-size: 24px; line-height: 31.2px; letter-spacing: -0.48px;
+}
+.about .bio p { margin: 0 0 30px; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--cream-20);
+  padding: 32px 20px; text-align: center;
+  font-size: 24px; line-height: 31.2px; letter-spacing: -0.48px;
+}
+footer p { margin: 0; }
+footer nav { margin-top: 10px; font-size: 16px; }
+footer nav a { text-decoration: none; opacity: .8; margin: 0 8px; }
+footer nav a:hover { opacity: 1; text-decoration: underline; }
+
+/* Thank-you overlay */
+.thanks {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(10, 4, 5, .85);
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.thanks.open { display: flex; }
+.thanks .card { position: relative; max-width: 560px; text-align: center; }
+.thanks h2 {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  color: var(--cream); font-size: 40px; line-height: 1.15; letter-spacing: -0.8px; margin: 0 0 24px;
+}
+.thanks img { margin: 0 auto; max-height: 50vh; width: auto; }
+.thanks .close {
+  position: absolute; top: -10px; right: -10px;
+  background: var(--cream); color: var(--red); border: 0; cursor: pointer;
+  font-size: 22px; width: 40px; height: 40px; border-radius: 50%;
+}
+
+/* Simple text pages */
+.text-page { max-width: 760px; margin: 0 auto; padding: 120px 20px 80px; font-size: 20px; line-height: 1.5; }
+.text-page h1 { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--cream); font-size: 64px; line-height: 1; letter-spacing: -1.28px; margin: 0 0 40px; }
+.text-page h2 { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--cream); font-size: 32px; margin: 40px 0 12px; }
+.text-page a { color: var(--cream); }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .hero { width: auto; margin: 0; padding: 117px 20px 50px; gap: 20px; }
+  .hero h1 { width: 351px; max-width: 100%; font-size: 60px; line-height: 60px; letter-spacing: -1.5px; }
+  .hero .blurb { width: 540px; font-size: 20px; }
+  .book { position: static; width: 100%; max-width: 100%; }
+  .book img { max-width: 80%; margin: 0 auto; }
+  .preorder input[type="email"], .preorder .btn { font-size: 20px; }
+  .about { width: auto; margin: 0; padding: 0 20px 70px; }
+  .about h2 { padding-bottom: 44px; font-size: 50px; line-height: 50px; }
+  .about .portrait img { margin: 0 auto; }
+  .about .links { margin-top: 44px; padding: 0; }
+  .about .links .btn { font-size: 20px; padding: 16px 20px 16px 14px; }
+  .about .bio { padding: 0; margin-top: 30px; font-size: 20px; }
+  footer { padding: 24px 20px; font-size: 20px; }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  body { background-position: top right; }
+  .lang { top: 10px; right: 10px; }
+  .lang a { font-size: 14px; padding: 8px 14px; }
+  .hero { gap: 13px; }
+  .hero h1 { font-size: 46px; line-height: 50.6px; letter-spacing: -0.92px; }
+  .hero .blurb { font-size: 14px; line-height: 18.2px; letter-spacing: -0.28px; }
+  .book { padding-top: 2px; }
+  .book img { max-width: 272px; }
+  .preorder input[type="email"] { font-size: 19px; }
+  .preorder .btn { font-size: 16px; letter-spacing: -0.32px; }
+  .about h2 { width: 176px; font-size: 44px; line-height: 44px; letter-spacing: -0.88px; }
+  .about .portrait img { max-width: 280px; }
+  .about .links { gap: 16px; }
+  .about .links .btn { width: 100%; font-size: 16px; line-height: 16px; letter-spacing: -0.32px; }
+  .about .bio { font-size: 16px; line-height: 20.8px; letter-spacing: -0.32px; }
+  .about .bio p { margin-bottom: 20px; }
+  footer { font-size: 16px; line-height: 20.8px; letter-spacing: -0.32px; }
+  .text-page h1 { font-size: 44px; }
+}

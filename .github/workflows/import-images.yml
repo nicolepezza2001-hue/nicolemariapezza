@@ -1,0 +1,33 @@
+# One-time job: copies the site's images over from the old WordPress site.
+# It runs automatically when this file is pushed and skips images that already exist.
+name: Import images from WordPress
+on:
+  push:
+    paths: [".github/workflows/import-images.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download images
+        run: |
+          set -e
+          base=https://nicolemariapezza.com/wp-content/uploads/2026/05
+          get() { [ -s "images/$2" ] || curl -fsSL -A "Mozilla/5.0" -o "images/$2" "$base/$1"; }
+          get img-scaled.png background.png
+          get PHOTO-2026-05-28-15-13-35-removebg-preview.png book-en.png
+          get PHOTO-2026-05-28-15-15-47-removebg-preview.png book-it.png
+          get image.png author.png
+          get image-2.png favicon.png
+          get PHOTO-2026-05-28-15-46-23-1.png thank-you.png
+          ls -la images
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
+          git add images
+          git diff --cached --quiet || git commit -m "Import images from WordPress site"
+          git push
