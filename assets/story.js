@@ -21,16 +21,13 @@
   var slides = Array.prototype.slice.call(row.querySelectorAll(".role"));
   if (slides.length < 2) return;
 
-  var MS = 6500, i = 0, timer = null, inView = false, hovering = false;
+  var MS = 5500, i = 0, timer = null, inView = false;
   section.classList.add("is-carousel");
   section.style.setProperty("--role-ms", MS + "ms");
   row.setAttribute("aria-live", "polite");
   slides.forEach(function (s) { s.classList.add("in"); });
 
   var nav = document.createElement("div"); nav.className = "role-nav";
-  var prev = document.createElement("button"); prev.className = "arrow"; prev.type = "button"; prev.setAttribute("aria-label", "Previous"); prev.textContent = "‹";
-  var next = document.createElement("button"); next.className = "arrow"; next.type = "button"; next.setAttribute("aria-label", "Next"); next.textContent = "›";
-  nav.appendChild(prev);
   var dots = slides.map(function (s, k) {
     var b = document.createElement("button"); b.className = "dot"; b.type = "button";
     var title = s.querySelector("h3"); b.textContent = s.querySelector(".num").textContent;
@@ -38,7 +35,6 @@
     b.addEventListener("click", function () { go(k, true); });
     nav.appendChild(b); return b;
   });
-  nav.appendChild(next);
   row.parentNode.insertBefore(nav, row.nextSibling);
 
   function show(k) {
@@ -51,16 +47,12 @@
   }
   function schedule() {
     clearTimeout(timer);
-    var paused = reduce || !inView || hovering || document.hidden;
+    var paused = reduce || !inView || document.hidden;
     section.classList.toggle("paused", paused);
     if (!paused) timer = setTimeout(function () { show(i + 1); schedule(); }, MS);
   }
   function go(k) { show(k); schedule(); }
 
-  prev.addEventListener("click", function () { go(i - 1); });
-  next.addEventListener("click", function () { go(i + 1); });
-  row.addEventListener("mouseenter", function () { hovering = true; schedule(); });
-  row.addEventListener("mouseleave", function () { hovering = false; schedule(); });
   document.addEventListener("visibilitychange", schedule);
 
   // swipe on phones
@@ -72,7 +64,7 @@
   });
 
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; schedule(); }, { threshold: 0.4 }).observe(row);
+    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; schedule(); }, { threshold: 0 }).observe(row);
   } else { inView = true; }
   show(0); schedule();
 })();
