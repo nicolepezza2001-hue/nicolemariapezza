@@ -50,7 +50,9 @@ figure { margin: 0; }
   padding: 24px var(--gutter);
   display: flex; align-items: center; justify-content: space-between;
 }
+.topbar .mark { width: 34px; height: 34px; flex: none; }
 .topbar .name {
+  display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--serif); font-style: italic; font-size: 22px;
   color: var(--cream); text-decoration: none; letter-spacing: -0.3px;
 }
