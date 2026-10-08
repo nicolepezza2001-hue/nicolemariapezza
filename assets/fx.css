@@ -1,7 +1,8 @@
 /* Optional atmosphere: Babylon painting behind the hero, embers, gentle motion.
    Everything here is switched off for people who ask their device for reduced motion. */
 
-body.fx { position: relative; background: var(--bg); }
+html { overflow-x: hidden; }
+body.fx { position: relative; background: var(--bg); overflow-x: clip; }
 body.fx::before, body.fx::after {
   content: ""; position: absolute; left: 0; right: 0; top: 0; height: 118vh; min-height: 820px;
   pointer-events: none; z-index: -2;
@@ -9,6 +10,8 @@ body.fx::before, body.fx::after {
 body.fx::before {
   background: url("../images/art/babylon.webp") 60% 30% / cover no-repeat;
   animation: fx-drift 45s ease-in-out infinite alternate;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 92%);
+          mask-image: linear-gradient(180deg, #000 55%, transparent 92%);
   transform-origin: 70% 30%;
 }
 body.fx::after {
@@ -58,4 +61,38 @@ body.fx .role:hover { transform: translateY(-4px); }
   body.fx::before, body.fx .hero-book img { animation: none; }
   .js body.fx .hero-head > *, .js body.fx .hero-book, .js body.fx .hero-body > * { animation: none; opacity: 1; transform: none; }
   .fx-embers { display: none; }
+}
+
+/* ---------- Small touches ---------- */
+
+/* The header eye blinks now and then */
+body.fx .topbar svg.mark .eye { transform-origin: 32px 32px; animation: fx-blink 9s ease-in-out infinite; }
+@keyframes fx-blink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.08); } }
+
+/* Star-eye ornaments between sections, with a fine line either side */
+.ornament {
+  max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter);
+  display: flex; align-items: center; gap: 18px;
+}
+.ornament::before, .ornament::after { content: ""; flex: 1; height: 1px; background: var(--cream-20); }
+.ornament img { width: 22px; height: 22px; opacity: .75; }
+body.fx .roles, body.fx .about { border-top: 0; }
+
+/* Opening the chapter: paragraphs arrive one after another */
+body.fx .reader[open] .excerpt-text { animation: none; }
+body.fx .reader[open] .excerpt-text p, body.fx .reader[open] .excerpt-end { opacity: 0; animation: fx-in .9s ease forwards; }
+body.fx .reader[open] .excerpt-text p:nth-child(2) { animation-delay: .12s; }
+body.fx .reader[open] .excerpt-text p:nth-child(3) { animation-delay: .24s; }
+body.fx .reader[open] .excerpt-text p:nth-child(4) { animation-delay: .36s; }
+body.fx .reader[open] .excerpt-text p:nth-child(5) { animation-delay: .48s; }
+body.fx .reader[open] .excerpt-text p:nth-child(6) { animation-delay: .6s; }
+body.fx .reader[open] .excerpt-text p:nth-child(7) { animation-delay: .72s; }
+body.fx .reader[open] .excerpt-text p:nth-child(8) { animation-delay: .84s; }
+body.fx .reader[open] .excerpt-end { animation-delay: 1s; }
+
+/* Thank-you card fades up gently */
+body.fx .thanks.open .card { animation: fx-in .7s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.fx .topbar svg.mark .eye, body.fx .reader[open] .excerpt-text p, body.fx .reader[open] .excerpt-end, body.fx .thanks.open .card { animation: none; opacity: 1; }
 }

@@ -27,11 +27,13 @@
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/story.css">
 <script>document.documentElement.classList.add("js")</script>
+<link rel="preload" as="image" href="images/art/babylon.webp">
+<link rel="stylesheet" href="assets/fx.css">
 </head>
-<body>
+<body class="fx">
 
 <header class="topbar">
-  <a class="name" href="./"><img class="mark" src="images/mark.svg" alt="" width="26" height="26">Nicole Maria Pezza</a>
+  <a class="name" href="./"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M32.00,1.00 L34.85,21.37 L47.50,5.15 L39.78,24.22 L58.85,16.50 L42.63,29.15 L63.00,32.00 L42.63,34.85 L58.85,47.50 L39.78,39.78 L47.50,58.85 L34.85,42.63 L32.00,63.00 L29.15,42.63 L16.50,58.85 L24.22,39.78 L5.15,47.50 L21.37,34.85 L1.00,32.00 L21.37,29.15 L5.15,16.50 L24.22,24.22 L16.50,5.15 L29.15,21.37Z" fill="#FFF7EB"/><g class="eye"><path d="M19.0,32 Q32,18 45.0,32 Q32,46 19.0,32Z" fill="#120708"/><circle cx="32" cy="32" r="5.4" fill="#860912"/><circle cx="32" cy="32" r="2.2" fill="#120708"/></g></svg>Nicole Maria Pezza</a>
   <nav class="lang" aria-label="Language">
     <a href="./" aria-current="true">EN</a>
     <a href="home-italian/" hreflang="it" lang="it">IT</a>
@@ -68,6 +70,7 @@
     </div>
   </section>
 
+  <div class="ornament" aria-hidden="true"><img src="images/mark.svg" alt="" width="22" height="22"></div>
   <section class="roles" aria-labelledby="roles-title">
     <p class="kicker reveal" id="roles-title">Saint, weapon, courtesan, myth, witness</p>
     <div class="role-row">
@@ -118,6 +121,7 @@
     </details>
   </section>
 
+  <div class="ornament" aria-hidden="true"><img src="images/mark.svg" alt="" width="22" height="22"></div>
   <section class="about" id="about">
     <figure class="portrait"><img src="images/author.webp" alt="Nicole Maria Pezza" width="915" height="1184" loading="lazy"></figure>
     <div class="about-text">
@@ -150,5 +154,6 @@
 
 <script src="assets/site.js"></script>
 <script src="assets/story.js"></script>
+<script src="assets/fx.js"></script>
 </body>
 </html>
