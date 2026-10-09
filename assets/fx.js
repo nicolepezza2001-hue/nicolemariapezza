@@ -19,15 +19,6 @@
     hero.addEventListener("pointerleave", function () { tilt.style.transform = ""; });
   }
 
-  // The cover's eye blinks every few seconds, and when you hover or tap the book
-  var bookFig = document.querySelector(".hero-book");
-  var lidAnims = bookFig ? Array.prototype.slice.call(bookFig.querySelectorAll(".cover-lid animate")) : [];
-  if (lidAnims.length && lidAnims[0].beginElement) {
-    var blinkBook = function () { lidAnims.forEach(function (a) { a.beginElement(); }); };
-    bookFig.addEventListener("pointerenter", blinkBook); bookFig.addEventListener("click", blinkBook);
-    (function every() { setTimeout(function () { blinkBook(); if (Math.random() < .5) setTimeout(blinkBook, 520); every(); }, 4000 + Math.random() * 3500); })();
-  }
-
   // The divider eye: its iris follows the cursor, and it blinks when touched
   document.querySelectorAll(".ornament svg").forEach(function (svg) {
     var iris = svg.querySelector(".iris");
@@ -36,10 +27,12 @@
       if (!eyeG || !eyeG.animate) return;
       eyeG.animate([{ transform: "scaleY(1)" }, { transform: "scaleY(.06)", offset: .45 }, { transform: "scaleY(1)" }], { duration: 420, easing: "ease-in-out" });
     }
-    (function every() { setTimeout(function () { blink(); setTimeout(blink, 520); every(); }, 3500 + Math.random() * 3000); })();
-    svg.addEventListener("animationend", function (e) { if (e.animationName === "fx-blink-once") svg.classList.remove("blinking"); });
-    svg.addEventListener("pointerenter", blink);
-    svg.addEventListener("click", blink);
+    var hasCursor = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    // On phones the eye blinks (every few seconds, and when tapped); with a cursor it only watches
+    if (!hasCursor) {
+      (function every() { setTimeout(function () { blink(); setTimeout(blink, 520); every(); }, 3500 + Math.random() * 3000); })();
+      svg.addEventListener("click", blink);
+    }
     if (!iris) return;
     function look(x, y) {
       var r = svg.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
@@ -47,7 +40,7 @@
       iris.style.transform = "translate(" + (dx / d * 3.6 * k).toFixed(2) + "px," + (dy / d * 1.5 * k).toFixed(2) + "px)";
     }
     // Only on devices with a real cursor; on phones the eye just blinks
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    if (hasCursor) {
       addEventListener("pointermove", function (e) { look(e.clientX, e.clientY); }, { passive: true });
     } else if ("IntersectionObserver" in window) {
       // on phones, blink as soon as it scrolls into view

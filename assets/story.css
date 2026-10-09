@@ -55,8 +55,7 @@
   padding: 16px 34px 16px 16px; border-radius: 999px;
   font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2vw, 24px); color: var(--cream);
   background: radial-gradient(120% 160% at 30% 0%, #c0182a 0%, #8f0a16 45%, #4f040b 100%);
-  box-shadow: 0 0 0 1px rgba(255, 190, 120, .18) inset, 0 12px 34px rgba(160, 14, 26, .45), 0 0 60px rgba(214, 70, 30, .25);
-  animation: rb-breathe 3.2s ease-in-out infinite;
+  box-shadow: 0 0 0 1px rgba(255, 190, 120, .18) inset, 0 10px 24px rgba(0, 0, 0, .45);
   transition: transform .35s cubic-bezier(.2,.7,.1,1);
   overflow: hidden;
 }
@@ -68,12 +67,7 @@
           mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   animation: rb-spin 4s linear infinite;
 }
-/* a band of light that sweeps across now and then */
-.reader-btn::after {
-  content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%; z-index: 1; pointer-events: none;
-  background: linear-gradient(100deg, transparent, rgba(255, 236, 200, .45), transparent);
-  transform: skewX(-18deg); animation: rb-sweep 4.5s ease-in-out infinite 1.2s;
-}
+
 @property --rb-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 @keyframes rb-spin { to { --rb-a: 360deg; } }
 @keyframes rb-sweep { 0%, 70% { left: -40%; } 100% { left: 120%; } }
@@ -83,7 +77,6 @@
 }
 .reader-btn .rb-eye {
   width: 44px; height: 44px; flex: none; position: relative; z-index: 2;
-  filter: drop-shadow(0 0 8px rgba(255, 180, 120, .55));
   transition: transform 1.2s cubic-bezier(.2,.7,.1,1);
 }
 .reader-btn .rb-eye .eye { transform-origin: 32px 32px; animation: fx-blink 6s ease-in-out infinite 1s; }
@@ -97,6 +90,7 @@
 .reader summary:hover .reader-btn { transform: translateY(-3px) scale(1.03); }
 .reader summary:hover .reader-btn .rb-eye { transform: rotate(120deg); }
 .reader summary:hover .reader-btn::before { animation-duration: 1.6s; }
+.reader-btn::after { content: none; }
 .reader summary:focus-visible { outline: none; }
 .reader summary:focus-visible .reader-btn { outline: 2px solid var(--cream); outline-offset: 4px; }
 .reader[open] .reader-btn { animation: none; }
