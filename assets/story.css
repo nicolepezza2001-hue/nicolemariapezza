@@ -272,3 +272,13 @@
 @media (prefers-reduced-motion: reduce) { .btn-ghost::before { animation: none; } }
 .be-arrow { display: inline-flex; align-items: center; opacity: .85; }
 .be-arrow svg { display: block; }
+
+/* ---------- One rhythm: the same space between every block ---------- */
+:root { --gap: clamp(64px, 8.5vw, 120px); }
+body .hero { padding-bottom: var(--gap); }
+body .ornament { margin: 0 auto; }
+body .roles { padding-top: calc(var(--gap) - 16px); padding-bottom: 0; }
+body .roles > .kicker { margin-bottom: clamp(24px, 3vw, 40px); }
+body .excerpt { padding-top: calc(var(--gap) - 16px); padding-bottom: 0; }
+body .about { padding-top: calc(var(--gap) - 37px); padding-bottom: var(--gap); }
+@media (max-width: 860px) { body .about { gap: 28px; padding-top: calc(var(--gap) - 26px); } }
