@@ -282,3 +282,7 @@ body .roles > .kicker { margin-bottom: clamp(24px, 3vw, 40px); }
 body .excerpt { padding-top: calc(var(--gap) - 16px); padding-bottom: 0; }
 body .about { padding-top: calc(var(--gap) - 37px); padding-bottom: var(--gap); }
 @media (max-width: 860px) { body .about { gap: 28px; padding-top: calc(var(--gap) - 26px); } }
+
+.about .links { flex-wrap: wrap; }
+.about .links .join-list { flex-basis: 100%; justify-content: center; max-width: 520px; }
+@media (max-width: 860px) { .about .links .join-list { margin: 0 auto; } }

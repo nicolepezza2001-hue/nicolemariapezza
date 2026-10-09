@@ -20,6 +20,15 @@
   var reader = document.querySelector(".reader");
   if (reader) reader.addEventListener("toggle", function () { if (reader.open) track("chapter-opened-" + document.documentElement.lang); });
 
+  // Mailing-list buttons further down jump back to the form and put the cursor in the email box
+  document.querySelectorAll('a[href="#preorder"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var f = document.getElementById("preorder"); if (!f) return; e.preventDefault();
+      f.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      var inp = f.querySelector('input[type="email"]'); setTimeout(function () { if (inp) inp.focus({ preventScroll: true }); }, reduce ? 0 : 700);
+    });
+  });
+
   // ---------- Roles carousel ----------
   var section = document.querySelector(".roles");
   if (!section) return;
