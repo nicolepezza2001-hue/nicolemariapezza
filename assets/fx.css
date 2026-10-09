@@ -53,7 +53,7 @@ body.fx .hero-book img { filter: drop-shadow(0 34px 44px rgba(0,0,0,.7)) drop-sh
 
 /* The star-eye turns slowly when you hover the name */
 body.fx .topbar .mark { transition: transform 1.2s cubic-bezier(.2,.7,.1,1); }
-body.fx .topbar .name:hover .mark { transform: rotate(60deg); }
+
 
 /* Role cards lift slightly on hover */
 body.fx .role { transition: transform .5s ease; }
