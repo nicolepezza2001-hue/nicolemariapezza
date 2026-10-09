@@ -301,3 +301,9 @@ body .about { padding-top: calc(var(--gap) - 37px); padding-bottom: var(--gap); 
 .reader summary:hover .reader-btn { transform: translateY(-2px); background: linear-gradient(180deg, #6a0913 0%, #43050c 100%); }
 .reader summary:hover .reader-btn::before { animation-duration: 6s; }
 .reader-btn .rb-eye { width: 36px; height: 36px; }
+/* Substack + Medium always share one row, equal widths, in both languages */
+.about .links { display: flex; gap: 14px; max-width: 520px; }
+.about .links .join-list { flex: 1 1 100%; max-width: none; }
+.about .links .btn-ghost { flex: 1 1 0; min-width: 0; justify-content: center; padding-left: 18px; padding-right: 18px; font-size: clamp(17px, 1.55vw, 21px); white-space: nowrap; }
+@media (max-width: 860px) { .about .links { margin: 30px auto 0; } }
+@media (max-width: 480px) { .about .links .btn-ghost { flex-basis: 100%; } }
