@@ -159,3 +159,44 @@ body.fx .about .bio em { background: linear-gradient(100deg, currentColor 40%, #
   .js body.fx .about .portrait .photo, .js body.fx .about h2, .js body.fx .about .bio p, .js body.fx .about .links > * { opacity: 1; transform: none; clip-path: none; transition: none; filter: none; }
   .js body.fx .about.in .bio em { animation: none; -webkit-text-fill-color: currentColor; }
 }
+
+/* ===================== Second round of motion ===================== */
+
+/* 1. The title writes itself, letter by letter */
+.js body.fx .hero-head h1 { animation: none; opacity: 1; transform: none; }
+.hero-head h1 .w { display: inline-block; white-space: nowrap; }
+.hero-head h1 .ch { display: inline-block; }
+.js body.fx .hero-head h1 .ch {
+  opacity: 0; filter: blur(8px); transform: translateY(.18em);
+  animation: ink-in .9s cubic-bezier(.2,.7,.1,1) forwards; animation-delay: calc(.3s + var(--i) * 55ms);
+}
+@keyframes ink-in { to { opacity: 1; filter: blur(0); transform: none; } }
+
+/* 2. The opening line lights up word by word as you reach it */
+.reader .teaser .tw { color: rgba(255, 247, 235, .16); transition: color .6s ease, text-shadow .6s ease; }
+.reader .teaser .tw.lit { color: var(--cream); text-shadow: 0 0 22px rgba(255, 190, 120, .18); }
+
+/* 3 + 4. Spark canvas for the cursor ember and the button bursts */
+.fx-sparks { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 60; }
+
+/* 5. The Babylon painting shifts a little with the cursor (or the scroll on phones) */
+body.fx::before { translate: var(--px, 0px) var(--py, 0px); transition: translate .6s cubic-bezier(.2,.7,.1,1); }
+
+/* 6. A gleam of light crosses the cover as you scroll past it */
+.hero-book .gleam {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  background: linear-gradient(105deg, transparent 0%, transparent 38%, rgba(255, 236, 205, .0) 42%, rgba(255, 236, 205, .32) 50%, rgba(255, 236, 205, 0) 58%, transparent 62%, transparent 100%);
+  background-size: 260% 100%; background-position: var(--g, 120%) 0; background-repeat: no-repeat;
+}
+
+/* 7. The divider eye starts closed and opens when it first appears */
+body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js body.fx .hero-head h1 .ch { animation: none; opacity: 1; filter: none; transform: none; }
+  .reader .teaser .tw { color: var(--cream); }
+  .fx-sparks, .hero-book .gleam { display: none; }
+  body.fx::before { translate: none; }
+  body.fx .ornament svg .eye.closed { transform: none; }
+}

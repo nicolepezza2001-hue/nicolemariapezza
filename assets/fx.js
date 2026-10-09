@@ -19,6 +19,112 @@
     hero.addEventListener("pointerleave", function () { tilt.style.transform = ""; });
   }
 
+
+  // ---------- 1. The title writes itself ----------
+  var h1 = document.querySelector(".hero-head h1");
+  if (h1 && !h1.dataset.split) {
+    var txt = h1.textContent; h1.dataset.split = "1"; h1.setAttribute("aria-label", txt); h1.textContent = "";
+    var n = 0;
+    txt.split(" ").forEach(function (word, wi, arr) {
+      var w = document.createElement("span"); w.className = "w"; w.setAttribute("aria-hidden", "true");
+      Array.from(word).forEach(function (c) { var ch = document.createElement("span"); ch.className = "ch"; ch.textContent = c; ch.style.setProperty("--i", n++); w.appendChild(ch); });
+      h1.appendChild(w); if (wi < arr.length - 1) h1.appendChild(document.createTextNode(" "));
+    });
+  }
+
+  // ---------- 2. The opening line lights up word by word ----------
+  var teaser = document.querySelector(".reader .teaser"), tWords = [];
+  if (teaser) {
+    var tt = teaser.textContent.trim(); teaser.setAttribute("aria-label", tt); teaser.textContent = "";
+    tt.split(/\s+/).forEach(function (wd, k, a) {
+      var sp = document.createElement("span"); sp.className = "tw"; sp.setAttribute("aria-hidden", "true"); sp.textContent = wd;
+      teaser.appendChild(sp); if (k < a.length - 1) teaser.appendChild(document.createTextNode(" ")); tWords.push(sp);
+    });
+  }
+
+  // ---------- 5 + 6. Scroll / pointer driven: painting parallax and the cover gleam ----------
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var gleam = document.querySelector(".hero-book .gleam"), bookBox = document.querySelector(".hero-book");
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false; var vh = innerHeight;
+      if (tWords.length) {
+        var r = teaser.getBoundingClientRect();
+        var p = (vh * 0.88 - r.top) / (vh * 0.42);
+        var k = Math.round(Math.max(0, Math.min(1, p)) * tWords.length);
+        tWords.forEach(function (w, i) { w.classList.toggle("lit", i < k); });
+      }
+      if (gleam && bookBox) {
+        var b = bookBox.getBoundingClientRect();
+        var q = 1 - (b.top + b.height / 2) / (vh * 0.9);             // 0 when the book sits low, ~1 as it scrolls up
+        gleam.style.setProperty("--g", (115 - Math.max(0, Math.min(1, q * 1.3)) * 130).toFixed(1) + "%");
+      }
+      if (!fine) document.body.style.setProperty("--py", Math.min(scrollY * 0.06, 40).toFixed(1) + "px");
+    });
+  }
+  addEventListener("scroll", onScroll, { passive: true }); addEventListener("resize", onScroll); onScroll();
+  if (fine) {
+    addEventListener("pointermove", function (e) {
+      if (scrollY > innerHeight * 1.2) return;
+      var x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      document.body.style.setProperty("--px", (-x * 22).toFixed(1) + "px");
+      document.body.style.setProperty("--py", (-y * 14).toFixed(1) + "px");
+    }, { passive: true });
+  }
+
+  // ---------- 3 + 4. Sparks: a small ember following the cursor, and bursts from the chapter button ----------
+  var sc = document.createElement("canvas"); sc.className = "fx-sparks"; sc.setAttribute("aria-hidden", "true");
+  document.body.appendChild(sc);
+  var sx = sc.getContext("2d"), sp = [], sRun = false, SW, SH, sd = Math.min(devicePixelRatio || 1, 2);
+  function sSize() { SW = innerWidth; SH = innerHeight; sc.width = SW * sd; sc.height = SH * sd; sx.setTransform(sd, 0, 0, sd, 0, 0); }
+  sSize(); addEventListener("resize", sSize);
+  var cur = { x: -99, y: -99, tx: -99, ty: -99, on: false, last: 0 };
+  function emit(x, y, o) {
+    o = o || {};
+    sp.push({ x: x, y: y, vx: (o.vx || 0) + (Math.random() - .5) * (o.spread || .6), vy: (o.vy || -.4) - Math.random() * (o.lift || .6),
+              life: 1, decay: o.decay || (0.012 + Math.random() * 0.02), r: o.r || (0.8 + Math.random() * 1.6), h: 8 + Math.random() * 30 });
+    if (!sRun) { sRun = true; requestAnimationFrame(sLoop); }
+  }
+  function sLoop() {
+    sx.clearRect(0, 0, SW, SH); sx.globalCompositeOperation = "lighter";
+    if (cur.on) {
+      cur.x += (cur.tx - cur.x) * 0.22; cur.y += (cur.ty - cur.y) * 0.22;
+      var g = sx.createRadialGradient(cur.x, cur.y, 0, cur.x, cur.y, 13);
+      g.addColorStop(0, "rgba(255,200,130,.9)"); g.addColorStop(.35, "rgba(240,110,40,.45)"); g.addColorStop(1, "rgba(240,90,30,0)");
+      sx.fillStyle = g; sx.beginPath(); sx.arc(cur.x, cur.y, 13, 0, 6.283); sx.fill();
+    }
+    for (var i = sp.length - 1; i >= 0; i--) {
+      var p = sp[i]; p.x += p.vx; p.y += p.vy; p.vy -= 0.004; p.vx *= 0.985; p.life -= p.decay;
+      if (p.life <= 0) { sp.splice(i, 1); continue; }
+      sx.fillStyle = "hsla(" + p.h.toFixed(0) + ",100%," + (55 + p.life * 15).toFixed(0) + "%," + (p.life * .9).toFixed(3) + ")";
+      sx.beginPath(); sx.arc(p.x, p.y, p.r * (0.5 + p.life * 0.5), 0, 6.283); sx.fill();
+    }
+    sx.globalCompositeOperation = "source-over";
+    if (sp.length || cur.on) requestAnimationFrame(sLoop); else sRun = false;
+  }
+  if (fine) {
+    addEventListener("pointermove", function (e) {
+      cur.tx = e.clientX; cur.ty = e.clientY;
+      if (!cur.on) { cur.x = cur.tx; cur.y = cur.ty; cur.on = true; }
+      var now = performance.now();
+      if (now - cur.last > 38) { cur.last = now; emit(cur.x, cur.y, { vy: -.15, lift: .35, spread: .5, decay: .035, r: .9 + Math.random() }); }
+      if (!sRun) { sRun = true; requestAnimationFrame(sLoop); }
+    }, { passive: true });
+    document.addEventListener("pointerleave", function () { cur.on = false; });
+    addEventListener("blur", function () { cur.on = false; });
+  }
+  var rbtn = document.querySelector(".reader-btn");
+  if (rbtn) {
+    var burst = function () {
+      var r = rbtn.getBoundingClientRect();
+      for (var i = 0; i < 34; i++) emit(r.left + Math.random() * r.width, r.top + r.height * (.1 + Math.random() * .35), { vy: -.7, lift: 1.6, spread: 1.2, decay: .01 + Math.random() * .01, r: 1.2 + Math.random() * 2.2 });
+    };
+    rbtn.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") burst(); });
+    rbtn.addEventListener("click", burst);
+  }
+
   // About section: arrive when scrolled to; on a computer the photo leans toward the cursor
   var about = document.querySelector(".about"), photo = about && about.querySelector(".portrait .photo");
   if (about) {
@@ -34,6 +140,17 @@
       eyeG.animate([{ transform: "scaleY(1)" }, { transform: "scaleY(.06)", offset: .45 }, { transform: "scaleY(1)" }], { duration: 420, easing: "ease-in-out" });
     }
     var hasCursor = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    // starts closed, opens slowly the first time it scrolls into view
+    if (eyeG && "IntersectionObserver" in window) {
+      eyeG.classList.add("closed");
+      new IntersectionObserver(function (es, ob) {
+        if (!es[0].isIntersecting) return; ob.disconnect();
+        setTimeout(function () {
+          eyeG.classList.remove("closed");
+          if (eyeG.animate) eyeG.animate([{ transform: "scaleY(.06)" }, { transform: "scaleY(.35)", offset: .4 }, { transform: "scaleY(.3)", offset: .55 }, { transform: "scaleY(1)" }], { duration: 1600, easing: "ease-in-out" });
+        }, 350);
+      }, { threshold: 0.8 }).observe(svg);
+    }
     // On phones the eye blinks (every few seconds, and when tapped); with a cursor it only watches
     if (!hasCursor) {
       (function every() { setTimeout(function () { blink(); setTimeout(blink, 520); every(); }, 3500 + Math.random() * 3000); })();
@@ -48,9 +165,6 @@
     // Only on devices with a real cursor; on phones the eye just blinks
     if (hasCursor) {
       addEventListener("pointermove", function (e) { look(e.clientX, e.clientY); }, { passive: true });
-    } else if ("IntersectionObserver" in window) {
-      // on phones, blink as soon as it scrolls into view
-      new IntersectionObserver(function (es) { if (es[0].isIntersecting) { blink(); setTimeout(blink, 520); } }, { threshold: 0.6 }).observe(svg);
     }
   });
 
