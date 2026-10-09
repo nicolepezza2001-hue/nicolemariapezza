@@ -20,7 +20,7 @@
       if (data.get("_honey")) return; // bot trap
       var email = String(data.get("email") || "").trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        err.textContent = form.dataset.error;
+        err.textContent = form.dataset.invalid || form.dataset.error;
         form.querySelector('input[type="email"]').focus();
         return;
       }
