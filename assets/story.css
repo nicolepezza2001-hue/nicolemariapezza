@@ -312,3 +312,4 @@ body .about { padding-top: calc(var(--gap) - 37px); padding-bottom: var(--gap); 
 .about .links form.join-list .row { max-width: none; }
 .about .links form.join-list .error:empty { display: none; }
 @media (max-width: 480px) { .about .links form.join-list .btn-ember { width: auto; flex: none; font-size: 17px; padding: 11px 18px; } }
+.excerpt-end p.read-wait { font-size: 18px; color: var(--cream-60); margin: -10px 0 22px; letter-spacing: .2px; }
