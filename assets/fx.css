@@ -128,38 +128,17 @@ body.fx .thanks.open .card { animation: fx-in .7s ease both; }
 .hero-book .tilt { position: relative; display: block; }
 .cover-lid { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-/* ---------- About: the portrait in a gothic arched window ---------- */
-.portrait { position: relative; }
-.portrait .photo { max-width: 400px; margin: 0 auto; position: relative; }
-.portrait .photo::before {
-  content: ""; position: absolute; inset: 8% 4% 0; z-index: -1; border-radius: 50% 50% 0 0 / 30% 30% 0 0;
-  background: radial-gradient(closest-side, rgba(150, 18, 30, .45), transparent); filter: blur(30px);
+/* ---------- About: the portrait, no frame, its edges dissolving into the dark ---------- */
+.portrait .photo { max-width: 460px; margin: 0 auto; }
+.portrait .photo img {
+  display: block; width: 100%; height: auto; max-width: none; filter: none;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 48%, #000 58%, rgba(0,0,0,.6) 78%, transparent 100%);
+          mask-image: radial-gradient(ellipse 50% 50% at 50% 48%, #000 58%, rgba(0,0,0,.6) 78%, transparent 100%);
 }
-svg.gothic { display: block; width: 100%; height: auto; overflow: visible; }
-svg.gothic .g-photo { filter: contrast(1.04) saturate(.92); transform-box: view-box; transform-origin: 195px 350px; }
-@media (max-width: 860px) { .portrait .photo { max-width: 300px; } }
-
-body.fx svg.gothic .g-photo { animation: g-drift 22s ease-in-out infinite alternate; }
-@keyframes g-drift { from { transform: scale(1); } to { transform: scale(1.09) translate(-6px, 4px); } }
-/* candlelight: an irregular, living flicker */
-body.fx svg.gothic .g-candle { animation: g-flicker 3.8s steps(1, end) infinite, g-flicker-soft 7s ease-in-out infinite; mix-blend-mode: screen; }
-@keyframes g-flicker { 0%{opacity:.85} 7%{opacity:.7} 11%{opacity:.95} 19%{opacity:.78} 26%{opacity:1} 38%{opacity:.82} 44%{opacity:.9} 57%{opacity:.72} 63%{opacity:.97} 77%{opacity:.8} 85%{opacity:.92} 93%{opacity:.75} }
-@keyframes g-flicker-soft { 0%,100%{ transform: translate(0,0); } 50%{ transform: translate(-6px, 4px); } }
-/* dust motes drifting up through the light */
-svg.gothic .mote { opacity: 0; }
-body.fx svg.gothic .mote { animation: g-mote var(--d) linear var(--o) infinite; transform-box: fill-box; }
-@keyframes g-mote { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: .8; } 85% { opacity: .5; } 100% { opacity: 0; transform: translate(14px, -240px); } }
-/* gilt frame draws itself in when the section appears */
-.js body.fx .about svg.gothic .g-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.2s cubic-bezier(.65,0,.35,1) .2s; }
-.js body.fx .about.in svg.gothic .g-line { stroke-dashoffset: 0; }
-.js body.fx .about svg.gothic .g-inner { transition-delay: .5s; }
-.js body.fx .about .portrait .photo { opacity: 0; filter: brightness(.2); transition: opacity 1.4s ease, filter 2s ease .2s; }
+@media (max-width: 860px) { .portrait .photo { max-width: 340px; } }
+/* she emerges slowly from the dark when the section comes into view */
+.js body.fx .about .portrait .photo { opacity: 0; filter: brightness(.15); transition: opacity 1.6s ease, filter 2.4s ease .2s; }
 .js body.fx .about.in .portrait .photo { opacity: 1; filter: none; }
-.js body.fx .about svg.gothic .g-key { opacity: 0; transition: opacity .8s ease 2s; }
-.js body.fx .about.in svg.gothic .g-key { opacity: 1; }
-.portrait:hover .photo::before { background: radial-gradient(closest-side, rgba(200, 40, 40, .6), transparent); }
-.portrait .photo { transition: transform .5s cubic-bezier(.2,.7,.1,1), opacity 1.4s ease, filter 2s ease .2s; transform-style: preserve-3d; }
-body.fx .portrait { perspective: 1100px; }
 
 .js body.fx .about h2 { clip-path: inset(0 100% 0 0); transition: clip-path 1.2s cubic-bezier(.65,0,.35,1) .6s; }
 .js body.fx .about.in h2 { clip-path: inset(0 -5% 0 0); }
@@ -177,8 +156,6 @@ body.fx .about .bio em { background: linear-gradient(100deg, currentColor 40%, #
 @keyframes about-glint { from { background-position: 100% 0; } to { background-position: 0 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .js body.fx .about .portrait .photo, .js body.fx .about h2, .js body.fx .about .bio p, .js body.fx .about .links > *, .js body.fx .about svg.gothic .g-key { opacity: 1; transform: none; clip-path: none; transition: none; filter: none; }
-  .js body.fx .about svg.gothic .g-line { stroke-dashoffset: 0; transition: none; }
-  body.fx svg.gothic .g-photo, body.fx svg.gothic .g-candle, body.fx svg.gothic .mote { animation: none; }
+  .js body.fx .about .portrait .photo, .js body.fx .about h2, .js body.fx .about .bio p, .js body.fx .about .links > * { opacity: 1; transform: none; clip-path: none; transition: none; filter: none; }
   .js body.fx .about.in .bio em { animation: none; -webkit-text-fill-color: currentColor; }
 }

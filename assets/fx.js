@@ -23,14 +23,6 @@
   var about = document.querySelector(".about"), photo = about && about.querySelector(".portrait .photo");
   if (about) {
     new IntersectionObserver(function (es, ob) { if (es[0].isIntersecting) { about.classList.add("in"); ob.disconnect(); } }, { threshold: 0.25 }).observe(about);
-    if (photo && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      var fig = photo.parentElement;
-      fig.addEventListener("pointermove", function (e) {
-        var r = fig.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-        photo.style.transform = "rotateY(" + (x * 12).toFixed(2) + "deg) rotateX(" + (-y * 9).toFixed(2) + "deg) translateY(-6px)";
-      });
-      fig.addEventListener("pointerleave", function () { photo.style.transform = ""; });
-    }
   }
 
   // The divider eye: its iris follows the cursor, and it blinks when touched
