@@ -136,7 +136,7 @@ body.fx .thanks.open .card { animation: fx-in .7s ease both; }
   background: radial-gradient(closest-side, rgba(150, 18, 30, .45), transparent); filter: blur(30px);
 }
 svg.gothic { display: block; width: 100%; height: auto; overflow: visible; }
-svg.gothic .g-photo { filter: contrast(1.08) saturate(.78) sepia(.12) brightness(.95); transform-box: view-box; transform-origin: 300px 230px; }
+svg.gothic .g-photo { filter: contrast(1.04) saturate(.92); transform-box: view-box; transform-origin: 195px 350px; }
 @media (max-width: 860px) { .portrait .photo { max-width: 300px; } }
 
 body.fx svg.gothic .g-photo { animation: g-drift 22s ease-in-out infinite alternate; }
