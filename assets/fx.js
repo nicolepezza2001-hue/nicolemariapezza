@@ -61,6 +61,23 @@
     new IntersectionObserver(function (es, ob) { if (es[0].isIntersecting) { about.classList.add("in"); ob.disconnect(); } }, { threshold: 0.25 }).observe(about);
   }
 
+  // The serpent round the portrait: on a computer its slit pupils follow the cursor; on phones it blinks now and then
+  var snake = document.querySelector(".portrait .serpent");
+  if (snake) {
+    var pupils = snake.querySelectorAll(".sp-pupil"), eyes = snake.querySelectorAll(".sp-eye");
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      addEventListener("pointermove", function (e) {
+        var r = snake.querySelector(".sp-head").getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 300);
+        var tr = "translate(" + (dx / d * 2 * k).toFixed(2) + "px," + (dy / d * 0.5 * k).toFixed(2) + "px)";
+        pupils.forEach(function (p) { p.style.transform = tr; });
+      }, { passive: true });
+    } else {
+      (function every() { setTimeout(function () {
+        if (about && about.classList.contains("in")) eyes.forEach(function (el) { if (el.animate) el.animate([{ transform: "scaleY(1)" }, { transform: "scaleY(.08)", offset: .45 }, { transform: "scaleY(1)" }], { duration: 380, easing: "ease-in-out" }); });
+        every(); }, 4500 + Math.random() * 4000); })();
+    }
+  }
+
   // The divider eye: its iris follows the cursor, and it blinks when touched
   document.querySelectorAll(".ornament svg").forEach(function (svg) {
     var iris = svg.querySelector(".iris");

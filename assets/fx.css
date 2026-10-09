@@ -184,3 +184,20 @@ body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
   .reader .teaser .tw { color: var(--cream); }
   body.fx .ornament svg .eye.closed { transform: none; }
 }
+
+/* ---------- The serpent: a dark oxblood ouroboros coiled round the portrait ---------- */
+.portrait .photo { position: relative; }
+.portrait .serpent { position: absolute; left: -15.217%; top: -15.217%; width: 130.435%; height: 130.435%; pointer-events: none; overflow: visible; }
+@media (max-width: 860px) { .portrait .photo { max-width: 280px; } }
+.serpent .sp-eye, .serpent .sp-pupil { transform-box: fill-box; transform-origin: center; }
+.serpent .sp-pupil { transition: transform .25s ease-out; }
+/* it slides round the photo, tail first, closing the circle; then its eyes open */
+.js body.fx .about .serpent .sp-reveal { stroke-dasharray: 100 100; stroke-dashoffset: 100; transition: stroke-dashoffset 2.6s cubic-bezier(.55,0,.25,1) .7s; }
+.js body.fx .about.in .serpent .sp-reveal { stroke-dashoffset: 0; }
+.js body.fx .about .serpent .sp-eye { opacity: 0; transform: scaleY(.08); transition: opacity .5s ease 3.2s, transform .7s cubic-bezier(.3,1.4,.5,1) 3.3s; }
+.js body.fx .about.in .serpent .sp-eye { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js body.fx .about .serpent .sp-reveal { stroke-dashoffset: 0; transition: none; }
+  .js body.fx .about .serpent .sp-eye { opacity: 1; transform: none; transition: none; }
+}
+@media (max-width: 860px) { .about .portrait { margin-top: 30px; margin-bottom: 14px; } }
