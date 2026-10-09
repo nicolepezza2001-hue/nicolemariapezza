@@ -38,11 +38,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/book-en.webp">
-<link rel="stylesheet" href="assets/style.css?v=202610081828">
-<link rel="stylesheet" href="assets/story.css?v=202610081828">
+<link rel="stylesheet" href="assets/style.css?v=202610081834">
+<link rel="stylesheet" href="assets/story.css?v=202610081834">
 <script>document.documentElement.classList.add("js")</script>
 <link rel="preload" as="image" href="images/art/babylon.webp">
-<link rel="stylesheet" href="assets/fx.css?v=202610081828">
+<link rel="stylesheet" href="assets/fx.css?v=202610081834">
 <script data-goatcounter="https://nicolep.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body class="fx">
@@ -140,7 +140,26 @@
   </section>
 
   <section class="about" id="about">
-    <figure class="portrait"><div class="photo"><img src="images/author.webp" alt="Nicole Maria Pezza" width="915" height="1184" loading="lazy"></div></figure>
+    <figure class="portrait"><div class="photo"><svg class="gothic" viewBox="0 0 400 560" role="img" aria-label="Nicole Maria Pezza">
+          <defs>
+            <clipPath id="archclip"><path d="M20,540 L20,290 A300,300 0 0 1 200,15 A300,300 0 0 1 380,290 L380,540 Z"/></clipPath>
+            <radialGradient id="candle" cx="62%" cy="38%" r="55%"><stop offset="0" stop-color="#ffb35c" stop-opacity=".55"/><stop offset=".5" stop-color="#d4501f" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+            <radialGradient id="vign" cx="50%" cy="45%" r="70%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#05020a" stop-opacity=".85"/></radialGradient>
+            <linearGradient id="blood" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#3a0510" stop-opacity="0"/><stop offset="1" stop-color="#3a0510" stop-opacity=".7"/></linearGradient>
+            <linearGradient id="gilt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd58a"/><stop offset=".5" stop-color="#a8743a"/><stop offset="1" stop-color="#ffcf7a"/></linearGradient>
+          </defs>
+          <g clip-path="url(#archclip)">
+            <rect width="400" height="560" fill="#0b0608"/>
+            <image class="g-photo" href="images/author-photo.webp" x="10" y="0" width="380" height="570" preserveAspectRatio="xMidYMid slice"/>
+            <rect width="400" height="560" fill="url(#blood)"/>
+            <rect class="g-candle" width="400" height="560" fill="url(#candle)"/>
+            <rect width="400" height="560" fill="url(#vign)"/>
+            <g class="g-motes" fill="#ffd9a0"><circle class="mote" cx="70" cy="500" r="1.6" style="--d:14s;--o:0s"/><circle class="mote" cx="130" cy="420" r="1.1" style="--d:18s;--o:3s"/><circle class="mote" cx="250" cy="520" r="1.4" style="--d:16s;--o:6s"/><circle class="mote" cx="320" cy="470" r="1.0" style="--d:20s;--o:2s"/><circle class="mote" cx="180" cy="300" r="1.2" style="--d:17s;--o:9s"/><circle class="mote" cx="290" cy="350" r="1.5" style="--d:15s;--o:4s"/><circle class="mote" cx="95" cy="260" r="0.9" style="--d:19s;--o:7s"/><circle class="mote" cx="345" cy="280" r="1.1" style="--d:13s;--o:11s"/></g>
+          </g>
+          <path class="g-line g-outer" d="M20,540 L20,290 A300,300 0 0 1 200,15 A300,300 0 0 1 380,290 L380,540 Z" fill="none" stroke="url(#gilt)" stroke-width="2.2" pathLength="1"/>
+          <path class="g-line g-inner" d="M20,540 L20,290 A300,300 0 0 1 200,15 A300,300 0 0 1 380,290 L380,540 Z" fill="none" stroke="url(#gilt)" stroke-width="1" opacity=".55" pathLength="1" transform="translate(200 290) scale(.955) translate(-200 -290)"/>
+          <g class="g-key" transform="translate(178 -7) scale(.6875)"><circle cx="32" cy="32" r="20" fill="#0b0608"/><path d="M32.00,1.00 L34.88,21.24 L47.50,5.15 L39.87,24.13 L58.85,16.50 L42.76,29.12 L63.00,32.00 L42.76,34.88 L58.85,47.50 L39.87,39.87 L47.50,58.85 L34.88,42.76 L32.00,63.00 L29.12,42.76 L16.50,58.85 L24.13,39.87 L5.15,47.50 L21.24,34.88 L1.00,32.00 L21.24,29.12 L5.15,16.50 L24.13,24.13 L16.50,5.15 L29.12,21.24Z" fill="#FFF7EB"/><g class="eye"><path d="M19.20873786407767,32 Q32,18.155339805825243 44.79126213592233,32 Q32,45.84466019417476 19.20873786407767,32Z" fill="#120708"/><circle cx="32" cy="32" r="5.42" fill="#860912"/><circle cx="32" cy="32" r="2.26" fill="#120708"/></g>
+        </svg></div></figure>
     <div class="about-text">
       <h2>About the Author</h2>
       <div class="bio">
@@ -169,8 +188,8 @@
   </div>
 </div>
 
-<script src="assets/site.js?v=202610081828"></script>
-<script src="assets/story.js?v=202610081828"></script>
-<script src="assets/fx.js?v=202610081828"></script>
+<script src="assets/site.js?v=202610081834"></script>
+<script src="assets/story.js?v=202610081834"></script>
+<script src="assets/fx.js?v=202610081834"></script>
 </body>
 </html>
