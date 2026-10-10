@@ -191,14 +191,15 @@ body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
 .portrait .serpent { position: absolute; left: -15.217%; top: -15.217%; width: 130.435%; height: 130.435%; pointer-events: none; filter: drop-shadow(0 5px 6px rgba(0,0,0,.75)); }
 .portrait .serpent img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; filter: none; object-fit: fill; }
 @media (max-width: 860px) { .portrait .photo { max-width: 280px; } }
-/* it slides round the photo from its tail, then the head arrives and bites */
+/* it slides round the photo from the tip of its tail, in one movement, until the head closes over the tail */
 @property --sweep { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-.js body.fx .about .serpent .sp-body { --sweep: 0deg; -webkit-mask: conic-gradient(from -14deg, #000 var(--sweep), transparent calc(var(--sweep) + 6deg)); mask: conic-gradient(from -14deg, #000 var(--sweep), transparent calc(var(--sweep) + 6deg)); transition: --sweep 2.8s cubic-bezier(.55,0,.25,1) .7s; }
-.js body.fx .about.in .serpent .sp-body { --sweep: 366deg; }
-.js body.fx .about .serpent .sp-head { opacity: 0; transform: rotate(-7deg); transform-origin: 50% 50%; transition: opacity .7s ease 3.2s, transform 1s cubic-bezier(.2,.8,.2,1) 3.2s; }
-.js body.fx .about.in .serpent .sp-head { opacity: 1; transform: none; }
+.js body.fx .about .serpent img { --sweep: 0deg; }
+.js body.fx .about .serpent .sp-body { -webkit-mask: conic-gradient(from -12deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); mask: conic-gradient(from -12deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); transition: --sweep 2.4s cubic-bezier(.45,0,1,1) .7s; }
+.js body.fx .about .serpent .sp-head { -webkit-mask: conic-gradient(from 336deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); mask: conic-gradient(from 336deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); transition: --sweep .55s cubic-bezier(0,0,.35,1) 3.1s; }
+.js body.fx .about.in .serpent .sp-body { --sweep: 360deg; }
+.js body.fx .about.in .serpent .sp-head { --sweep: 50deg; }
 @media (prefers-reduced-motion: reduce) {
   .js body.fx .about .serpent .sp-body { -webkit-mask: none; mask: none; transition: none; }
-  .js body.fx .about .serpent .sp-head { opacity: 1; transform: none; transition: none; }
+  .js body.fx .about .serpent .sp-head { -webkit-mask: none; mask: none; transition: none; }
 }
 @media (max-width: 860px) { .about .portrait { margin-top: 30px; margin-bottom: 14px; } }
