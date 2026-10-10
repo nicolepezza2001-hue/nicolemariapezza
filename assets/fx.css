@@ -186,19 +186,19 @@ body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
   body.fx .ornament svg .eye.closed { transform: none; }
 }
 
-/* ---------- The serpent: a dark oxblood ouroboros coiled round the portrait ---------- */
+/* ---------- The serpent: a black ouroboros, rendered scale by scale, coiled round the portrait ---------- */
 .portrait .photo { position: relative; }
-.portrait .serpent { position: absolute; left: -15.217%; top: -15.217%; width: 130.435%; height: 130.435%; pointer-events: none; overflow: visible; }
+.portrait .serpent { position: absolute; left: -15.217%; top: -15.217%; width: 130.435%; height: 130.435%; pointer-events: none; filter: drop-shadow(0 5px 6px rgba(0,0,0,.75)); }
+.portrait .serpent img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; filter: none; object-fit: fill; }
 @media (max-width: 860px) { .portrait .photo { max-width: 280px; } }
-.serpent .sp-eye, .serpent .sp-pupil { transform-box: fill-box; transform-origin: center; }
-.serpent .sp-pupil { transition: transform .25s ease-out; }
-/* it slides round the photo, tail first, closing the circle; then its eyes open */
-.js body.fx .about .serpent .sp-reveal { stroke-dasharray: 100 100; stroke-dashoffset: 100; transition: stroke-dashoffset 2.6s cubic-bezier(.55,0,.25,1) .7s; }
-.js body.fx .about.in .serpent .sp-reveal { stroke-dashoffset: 0; }
-.js body.fx .about .serpent .sp-eye { opacity: 0; transform: scaleY(.08); transition: opacity .5s ease 3.2s, transform .7s cubic-bezier(.3,1.4,.5,1) 3.3s; }
-.js body.fx .about.in .serpent .sp-eye { opacity: 1; transform: none; }
+/* it slides round the photo from its tail, then the head arrives and bites */
+@property --sweep { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.js body.fx .about .serpent .sp-body { --sweep: 0deg; -webkit-mask: conic-gradient(from -14deg, #000 var(--sweep), transparent calc(var(--sweep) + 6deg)); mask: conic-gradient(from -14deg, #000 var(--sweep), transparent calc(var(--sweep) + 6deg)); transition: --sweep 2.8s cubic-bezier(.55,0,.25,1) .7s; }
+.js body.fx .about.in .serpent .sp-body { --sweep: 366deg; }
+.js body.fx .about .serpent .sp-head { opacity: 0; transform: rotate(-7deg); transform-origin: 50% 50%; transition: opacity .7s ease 3.2s, transform 1s cubic-bezier(.2,.8,.2,1) 3.2s; }
+.js body.fx .about.in .serpent .sp-head { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .js body.fx .about .serpent .sp-reveal { stroke-dashoffset: 0; transition: none; }
-  .js body.fx .about .serpent .sp-eye { opacity: 1; transform: none; transition: none; }
+  .js body.fx .about .serpent .sp-body { -webkit-mask: none; mask: none; transition: none; }
+  .js body.fx .about .serpent .sp-head { opacity: 1; transform: none; transition: none; }
 }
 @media (max-width: 860px) { .about .portrait { margin-top: 30px; margin-bottom: 14px; } }
