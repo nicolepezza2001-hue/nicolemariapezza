@@ -190,7 +190,7 @@ body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
 .portrait .photo { position: relative; }
 .portrait .serpent { position: absolute; left: -18.22%; top: -18.22%; width: 136.44%; height: 136.44%; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(0,0,0,.6)); }
 .portrait .serpent img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; filter: none; object-fit: fill; }
-@media (max-width: 860px) { .portrait .photo { max-width: 262px; } }
+@media (max-width: 860px) { .portrait .photo { max-width: 280px; } }
 /* it coils slowly round the frame (anticlockwise, the way its body runs), then the neck slides inside and the head arrives */
 @property --sweep { syntax: '<angle>'; inherits: false; initial-value: -8deg; }
 .js body.fx .about .serpent img { --sweep: -8deg; }
