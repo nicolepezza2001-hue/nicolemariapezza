@@ -186,20 +186,19 @@ body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
   body.fx .ornament svg .eye.closed { transform: none; }
 }
 
-/* ---------- The serpent: a black ouroboros, rendered scale by scale, coiled round the portrait ---------- */
+/* ---------- The serpent: a black indigo snake coiled round the portrait, its head slipping inside the frame ---------- */
 .portrait .photo { position: relative; }
-.portrait .serpent { position: absolute; left: -15.217%; top: -15.217%; width: 130.435%; height: 130.435%; pointer-events: none; filter: drop-shadow(0 5px 6px rgba(0,0,0,.75)); }
+.portrait .serpent { position: absolute; left: -18.22%; top: -18.22%; width: 136.44%; height: 136.44%; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(0,0,0,.6)); }
 .portrait .serpent img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; filter: none; object-fit: fill; }
-@media (max-width: 860px) { .portrait .photo { max-width: 280px; } }
-/* it slides round the photo from the tip of its tail, in one movement, until the head closes over the tail */
-@property --sweep { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-.js body.fx .about .serpent img { --sweep: 0deg; }
-.js body.fx .about .serpent .sp-body { -webkit-mask: conic-gradient(from -12deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); mask: conic-gradient(from -12deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); transition: --sweep 2.4s cubic-bezier(.45,0,1,1) .7s; }
-.js body.fx .about .serpent .sp-head { -webkit-mask: conic-gradient(from 336deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); mask: conic-gradient(from 336deg, #000 var(--sweep), transparent calc(var(--sweep) + 5deg)); transition: --sweep .55s cubic-bezier(0,0,.35,1) 3.1s; }
-.js body.fx .about.in .serpent .sp-body { --sweep: 360deg; }
-.js body.fx .about.in .serpent .sp-head { --sweep: 50deg; }
+@media (max-width: 860px) { .portrait .photo { max-width: 262px; } }
+/* it coils slowly round the frame (anticlockwise, the way its body runs), then the neck slides inside and the head arrives */
+@property --sweep { syntax: '<angle>'; inherits: false; initial-value: -8deg; }
+.js body.fx .about .serpent img { --sweep: -8deg; }
+.js body.fx .about .serpent .sp-ring { -webkit-mask: conic-gradient(from 15deg, transparent calc(360deg - var(--sweep) - 8deg), #000 calc(360deg - var(--sweep))); mask: conic-gradient(from 15deg, transparent calc(360deg - var(--sweep) - 8deg), #000 calc(360deg - var(--sweep))); transition: --sweep 4.4s cubic-bezier(.4,0,.85,.9) .7s; }
+.js body.fx .about .serpent .sp-neck { -webkit-mask: conic-gradient(from 15deg, transparent calc(360deg - var(--sweep) - 8deg), #000 calc(360deg - var(--sweep))); mask: conic-gradient(from 15deg, transparent calc(360deg - var(--sweep) - 8deg), #000 calc(360deg - var(--sweep))); transition: --sweep 1.5s cubic-bezier(.1,.4,.3,1) 5.05s; }
+.js body.fx .about.in .serpent .sp-ring { --sweep: 368deg; }
+.js body.fx .about.in .serpent .sp-neck { --sweep: 130deg; }
 @media (prefers-reduced-motion: reduce) {
-  .js body.fx .about .serpent .sp-body { -webkit-mask: none; mask: none; transition: none; }
-  .js body.fx .about .serpent .sp-head { -webkit-mask: none; mask: none; transition: none; }
+  .js body.fx .about .serpent img { -webkit-mask: none; mask: none; transition: none; }
 }
 @media (max-width: 860px) { .about .portrait { margin-top: 30px; margin-bottom: 14px; } }
