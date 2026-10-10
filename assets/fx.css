@@ -202,3 +202,5 @@ body.fx .ornament svg .eye.closed { transform: scaleY(.06); }
   .js body.fx .about .serpent img { -webkit-mask: none; mask: none; transition: none; }
 }
 @media (max-width: 860px) { .about .portrait { margin-top: 30px; margin-bottom: 14px; } }
+/* on wide screens the coiled portrait sits a little further from the text */
+@media (min-width: 861px) { .about .portrait { position: relative; left: clamp(-64px, -3.5vw, -28px); } }
